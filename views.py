@@ -12,10 +12,23 @@ def index(request):
 	return render_to_response('index.html', {'admin': administradora})
 
 
-def listarConsorcios(request):
-    m_list = Consorcio.objects.all()
-    return render_to_response('balance/consorcio_list.html',{'consorcio_list': m_list})
-	
+#def listarConsorcios(request):
+#	"""Lista todos los consorcios que hay"""
+#	consorcios = Consorcio.objects.all()
+#	return render_to_response('balance/consorcio_list.html',{'consorcio_list': consorcios})
+
+#def listarAdministradoras(reques):
+#	"""Lista todas las administradoras que hay"""
+#	administradoras = Administradora.objects.all()
+#	return render_to_response('balance/administradora_list.html',{'administradora_list': administradoras})
 
 
+administradora_info  = {
+    "queryset" : Administradora.objects.all(),
+    "template_object_name" : "administradora",    
+}
 
+consorcio_info  = {
+    "queryset" : Consorcio.objects.all(),
+    "template_object_name" : "consorcio",    
+}
