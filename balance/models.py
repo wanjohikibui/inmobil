@@ -23,7 +23,7 @@ class Administradora(models.Model):
 
 class Consorcio(models.Model):
 	"""El edificio administrado"""
-	administradora = models.ForeignKey(Administradora)
+	#administradora = models.ForeignKey(Administradora)
 	nombre= models.CharField(max_length=200)
 	direccion = models.CharField(max_length=250)
 	observacion = models.TextField(blank=True, null=True)
