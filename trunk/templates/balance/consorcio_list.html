@@ -5,8 +5,8 @@
 <h2>Consorcios administrados</h2>
 
 <ul>
-{% for consorcio in m_list %}
- <li><a href="/consorcios/{{ consorcio.id }}"> {{ consorcio }}</a></li>
+{% for consorcio_item in consorcio_list %}
+ <li><a href="/consorcios/{{ consorcio_item.id }}"> {{ consorcio_item.nombre }}</a></li>
 {% endfor %} 
 </ul>
 {% endblock left %}

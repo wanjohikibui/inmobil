@@ -14,7 +14,7 @@ def index(request):
 
 def listarConsorcios(request):
     m_list = Consorcio.objects.all()
-    return render_to_response('consorcios.html',{'m_list': m_list})
+    return render_to_response('balance/consorcio_list.html',{'consorcio_list': m_list})
 	
 
 
