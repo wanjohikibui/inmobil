@@ -12,7 +12,24 @@ class Consorcio(models.Model):
 	
 	class Admin:
 		pass
+
+class Administradora(models.Model):
+	"""El administrador del sistema"""
+	nombre= models.CharField(max_length=200)
+	direccion = models.CharField(max_length=250)
+	observacion = models.TextField(blank=True, null=True)
+	imagen = models.ImageField(height_field=50, width_field=50)
+	telefono = models.CharField(max_length=10)
+	
+	def __unicode__(self):
+		return self.nombre
 		
+	
+	class Admin:
+		pass
+
+
+	
 	
 class Depto(models.Model):
 	"""cada una de las unidades de cobro"""
@@ -35,7 +52,7 @@ class Balance(models.Model):
 	fecha_vencimiento = models.DateField()
 	
 	def __unicode__(self):
-			return u'%s (%i/%i)' % (self.consorcio, self.mes, self.ano)
+		return u'%s (%i/%i)' % (self.consorcio, self.mes, self.ano)
 	
 	class Admin:
 		pass	
