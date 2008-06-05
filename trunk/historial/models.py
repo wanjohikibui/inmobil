@@ -18,3 +18,4 @@ class Pago(models.Model):
 	class Admin:
 		pass
 	
+#TODO lala
