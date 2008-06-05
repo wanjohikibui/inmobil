@@ -1,0 +1,73 @@
+from django.db import models
+
+class Consorcio(models.Model):
+	"""El edificio administrado"""
+	nombre= models.CharField(max_length=200)
+	direccion = models.CharField(max_length=250)
+	observacion = models.TextField(blank=True, null=True)
+	
+	def __unicode__(self):
+		return self.nombre
+		
+	
+	class Admin:
+		pass
+		
+	
+class Depto(models.Model):
+	"""cada una de las unidades de cobro"""
+	consorcio = models.ForeignKey(Consorcio)
+	piso = models.PositiveIntegerField()
+	ala = models.CharField(max_length=2)
+	coeficiente = models.DecimalField(max_digits=6, decimal_places=4)
+	
+	def __unicode__(self):
+		return unicode(str(self.piso) + "\"" + str(self.ala) + "\" (" + self.consorcio + ")" )
+
+	class Admin:
+		pass
+	
+class Balance(models.Model):
+	consorcio = models.ForeignKey(Consorcio)
+	mes = models.IntegerField()
+	ano = models.IntegerField()
+	fecha_creacion = models.DateField(auto_now=True)
+	fecha_vencimiento = models.DateField()
+	
+	def __unicode__(self):
+			return u'%s (%i/%i)' % (self.consorcio, self.mes, self.ano)
+	
+	class Admin:
+		pass	
+	
+
+class CategoriaItem(models.Model):
+	nombre = models.CharField(max_length=100, unique=True)
+
+	def __unicode__(self):
+		return self.nombre
+	
+	class Admin:
+		pass	
+
+class ItemBalance(models.Model):
+	balance = models.ForeignKey(Balance)
+	concepto = models.CharField(max_length=300)
+	categoria = models.ForeignKey(CategoriaItem)
+	monto = models.DecimalField(max_digits=8, decimal_places=2)
+	
+	def __unicode__(self):
+		return self.concepto
+
+class ItemBalanceDefecto(models.Model):
+	"""Estos son items que se ofrecen por defecto para un nuevo balance."""
+	concepto = models.CharField(max_length=300)
+	categoria = models.ForeignKey(CategoriaItem)
+	monto = models.DecimalField(max_digits=8, decimal_places=2)	
+
+
+	
+	class Admin:
+		pass	
+	
+		
