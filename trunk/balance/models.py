@@ -18,9 +18,10 @@ class Administradora(models.Model):
 	nombre= models.CharField(max_length=200)
 	direccion = models.CharField(max_length=250)
 	observacion = models.TextField(blank=True, null=True)
-	imagen = models.ImageField(upload_to='/upload', height_field=50, width_field=50)
+	imagen = models.ImageField(upload_to='/upload', height_field=50,width_field=50)
 	telefono = models.CharField(max_length=10)
-	
+	slogan = models.TextField(blank=True, null=True)
+	email = models.CharField(max_length=100)
 	def __unicode__(self):
 		return self.nombre
 		
