@@ -7,7 +7,7 @@ class Consorcio(models.Model):
 	nombre= models.CharField(max_length=200)
 	direccion = models.CharField(max_length=250)
 	observacion = models.TextField(blank=True, null=True)
-	
+	 
 	def __unicode__(self):
 		return self.nombre
 		
@@ -24,6 +24,7 @@ class Administradora(models.Model):
 	telefono = models.CharField(max_length=10)
 	slogan = models.TextField(blank=True, null=True)
 	email = models.CharField(max_length=100)
+	
 	def __unicode__(self):
 		return self.nombre
 		
@@ -38,7 +39,6 @@ class Depto(models.Model):
 	"""cada una de las unidades de cobro"""
 	consorcio = models.ForeignKey(Consorcio)
 	piso = models.PositiveIntegerField()
-	
 	ala = models.CharField(max_length=2)
 	coeficiente = models.DecimalField(max_digits=6, decimal_places=4)
 	
@@ -91,4 +91,3 @@ class ItemBalanceDefecto(models.Model):
 	class Admin:
 		pass	
 	
-		
