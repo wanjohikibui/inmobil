@@ -10,6 +10,8 @@ def listarConsorcios(request):
     return render_to_response('consorcios.html',{'m_list': m_list})
 
 def listarAdministradora(request):
+    m_list = Administradora.objects.all()
+    return render_to_response('consorcios.html',{'m_list': m_list})    
     pass
     
 def listarDepto(request):
