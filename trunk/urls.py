@@ -2,7 +2,7 @@ from django.conf.urls.defaults import *
 from inmobil.views import index
 from inmobil.balance import views
 urlpatterns = patterns('',
-    (r'^list/$', 'inmobil.balance.views.listarConsorcios'),
+    (r'^consorcios/$', 'inmobil.views.listarConsorcios'),
 
 
     (r'index/$', index), 

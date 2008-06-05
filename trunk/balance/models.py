@@ -2,18 +2,6 @@
 #coding=utf-8
 from django.db import models
 
-class Consorcio(models.Model):
-	"""El edificio administrado"""
-	nombre= models.CharField(max_length=200)
-	direccion = models.CharField(max_length=250)
-	observacion = models.TextField(blank=True, null=True)
-	 
-	def __unicode__(self):
-		return self.nombre
-		
-	
-	class Admin:
-		pass
 
 class Administradora(models.Model):
 	"""El administrador del sistema"""
@@ -33,7 +21,19 @@ class Administradora(models.Model):
 		pass
 
 
+class Consorcio(models.Model):
+	"""El edificio administrado"""
+	administradora = models.ForeignKey(Administradora)
+	nombre= models.CharField(max_length=200)
+	direccion = models.CharField(max_length=250)
+	observacion = models.TextField(blank=True, null=True)
 	
+	def __unicode__(self):
+		return self.nombre
+		
+	
+	class Admin:
+		pass	
 	
 class Depto(models.Model):
 	"""cada una de las unidades de cobro"""
