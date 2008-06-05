@@ -36,6 +36,7 @@ class Depto(models.Model):
 	"""cada una de las unidades de cobro"""
 	consorcio = models.ForeignKey(Consorcio)
 	piso = models.PositiveIntegerField()
+	
 	ala = models.CharField(max_length=2)
 	coeficiente = models.DecimalField(max_digits=6, decimal_places=4)
 	
