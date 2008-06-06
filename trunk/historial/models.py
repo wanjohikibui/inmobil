@@ -13,7 +13,7 @@ class Pago(models.Model):
 	punitorios = models.DecimalField(max_digits=6, decimal_places=4, null=True, blank=True)
 	
 	def __unicode__(self):
-		return self.depto + " - " +  self.balance
+		return unicode(self.depto) + " - " +  unicode(self.balance)
 	
 	class Admin:
 		pass
