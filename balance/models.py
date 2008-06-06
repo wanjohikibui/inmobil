@@ -57,7 +57,7 @@ class Balance(models.Model):
 	observacion = models.TextField(blank=True, null=True)
 	
 	def __unicode__(self):
-		return u'%s (%i/%i)' % (self.consorcio, self.mes, self.ano)
+		return u'%s %s' % (self.consorcio, self.fecha_vencimiento)
 	
 	class Admin:
 		pass	
