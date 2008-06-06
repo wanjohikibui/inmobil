@@ -16,7 +16,7 @@ urlpatterns = patterns('',
     
     (r'^consorcio/(?P<consorcio_id>\d+)/$', 'inmobil.balance.views.consorcio_detail'),
     
-    #(r'^consorcio/(?P<consorcio_id>\d+)/(?P<year>\d{4})/(?<month>\d[a-z]{3})/$', 'inmobil.balance.views.balance_detail'),
+    (r'^consorcio/(?P<consorcio_id>\d+)/(?P<year>\d{4})-(?P<month>\d{1,2})-(?P<day>\d{1,2})/$', 'inmobil.historial.views.pago_detail'),
 
     #(r'^consorcios/$', 'inmobil.views.listarConsorcios'),     
     #el listado de objetos lo hago mediante una generic view. 
