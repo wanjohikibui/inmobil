@@ -23,7 +23,7 @@ class Administradora(models.Model):
 
 class Consorcio(models.Model):
 	"""El edificio administrado"""
-	#administradora = models.ForeignKey(Administradora)
+	administradora = models.ForeignKey(Administradora)
 	nombre= models.CharField(max_length=200)
 	direccion = models.CharField(max_length=250)
 	observacion = models.TextField(blank=True, null=True)
@@ -43,7 +43,7 @@ class Depto(models.Model):
 	coeficiente = models.DecimalField(max_digits=6, decimal_places=4)
 	
 	def __unicode__(self):
-		return unicode(str(self.piso) + "\"" + str(self.ala) + "\" (" + self.consorcio + ")" )
+		return unicode(self.piso) + u'º' + unicode(self.ala)
 
 	class Admin:
 		pass
