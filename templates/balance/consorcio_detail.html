@@ -1,0 +1,26 @@
+{% extends "base_general.html" %}
+
+{% block left %}
+
+<h2>Consorcio "{{ consorcio.nombre }}" </h2>
+<p>{{ consorcio.direccion }}</p>
+
+<p>Este edificio tiene un total de {{ deptos|length }} departamentos </p>
+ 
+<ul>
+{% for depto in deptos %}
+ <li><a href="./depto{{ depto.piso }}-{{ depto.ala }}"> {{ depto.piso }}º {{ depto.ala }}</a>  (Coeficiente: {{ depto.coeficiente }})</li>
+{% endfor %} 
+</ul>
+{% endblock left %}
+
+
+
+{% block box %}	
+		<h2 style="margin-top:17px">Ultimos balances</h2>
+		<ul>
+        {% for balance in balance %}
+			<li><a href="./{{ balance.ano }}/{{ balance.mes }}/">Balance del {{ balance.mes }}/{{ balance.ano }}</a> </li>
+        {% endfor %}
+		</ul>
+{% endblock box %}	

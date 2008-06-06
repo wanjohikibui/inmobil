@@ -17,6 +17,7 @@ def index(request):
 #	consorcios = Consorcio.objects.all()
 #	return render_to_response('balance/consorcio_list.html',{'consorcio_list': consorcios})
 
+
 #def listarAdministradoras(reques):
 #	"""Lista todas las administradoras que hay"""
 #	administradoras = Administradora.objects.all()
