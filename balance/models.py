@@ -50,10 +50,11 @@ class Depto(models.Model):
 	
 class Balance(models.Model):
 	consorcio = models.ForeignKey(Consorcio)
-	mes = models.IntegerField()
-	ano = models.IntegerField()
+#	mes = models.IntegerField() Por las dudas las dejo comentadas
+#	ano = models.IntegerField() Por las dudas las dejo comentadas
 	fecha_creacion = models.DateField(auto_now=True)
 	fecha_vencimiento = models.DateField()
+	observacion = models.TextField(blank=True, null=True)
 	
 	def __unicode__(self):
 		return u'%s (%i/%i)' % (self.consorcio, self.mes, self.ano)
