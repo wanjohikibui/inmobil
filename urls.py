@@ -8,7 +8,6 @@ from inmobil.balance.models import Administradora
 from inmobil.views import *
 
 
-
 urlpatterns = patterns('',
     
     (r'index/$', 'inmobil.views.index'), 
@@ -16,8 +15,6 @@ urlpatterns = patterns('',
     
     
     (r'^consorcio/(?P<consorcio_id>\d+)/$', 'inmobil.balance.views.consorcio_detail'),
-
- #TODO No funca! (r'^consorcio/(?P<consorcio_id>\d+)/$', 'inmobil.balance.views.consorcio_detail'),
 
     #(r'^consorcios/$', 'inmobil.views.listarConsorcios'),     
     #el listado de objetos lo hago mediante una generic view. 
