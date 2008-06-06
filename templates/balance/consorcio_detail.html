@@ -1,5 +1,14 @@
 {% extends "base_general.html" %}
 
+{% block extrahead %}
+{% include 'inc-grid.html' %}
+{% endblock %}
+
+{% block jquery %}
+{% endblock jquery%}
+
+
+
 {% block left %}
 
 <h2>Consorcio "{{ consorcio.nombre }}" </h2>
