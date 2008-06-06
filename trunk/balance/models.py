@@ -1,17 +1,19 @@
 #!/usr/bin/env python
 #coding=utf-8
 from django.db import models
-
+PATH_ARCHIVOS = '%Y/%m/%d'
 
 class Administradora(models.Model):
 	"""El administrador del sistema"""
 	nombre= models.CharField(max_length=200)
 	direccion = models.CharField(max_length=250)
 	observacion = models.TextField(blank=True, null=True)
-	imagen = models.ImageField(upload_to='/upload', height_field=50,width_field=50, null=True, blank=True)
+	imagen = models.ImageField(upload_to=PATH_ARCHIVOS, height_field=100,width_field=100, null=True, blank=True)
 	telefono = models.CharField(max_length=10)
-	slogan = models.TextField(blank=True, null=True)
-	email = models.CharField(max_length=100)
+	slogan = models.CharField(max_length=200, blank=True, null=True)
+	email = models.EmailField(blank=True, null=True)
+	sitio = models.URLField(verify_exists=False, blank=True, null=True)
+	
 	
 	def __unicode__(self):
 		return self.nombre
