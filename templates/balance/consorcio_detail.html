@@ -19,7 +19,7 @@
 {% block box %}	
 		<h2 style="margin-top:17px">Ultimos balances</h2>
 		<ul>
-        {% for balance in balance %}
+        {% for balance in balances %}
 			<li><a href="./{{ balance.ano }}/{{ balance.mes }}/">Balance del {{ balance.mes }}/{{ balance.ano }}</a> </li>
         {% endfor %}
 		</ul>
