@@ -47,13 +47,22 @@ def balance_new(request, consorcio_id):
     
     
 def balance_detail(request, year, month, consorcio_id):
-    """muestra el detalle del pago por departamento"""
+    """muestra el detalle del pago"""
+    #TODO falta mejorar esto
     consorcio = Consorcio.objects.get(id=consorcio_id)
     deptos = Depto.objects.filter(consorcio=consorcio_id)
     monto = Pago.objects.filter(balance=consorcio_id)
     fecha = Balance.objects.filter(consorcio=consorcio_id)
     return render_to_response('balance/pago_detail.html', {'consorcio': consorcio,                             'deptos':deptos, 'monto':monto, 'fecha': fecha})
 
+def depto_balance_detail(reques, consorcio_id, piso_id):
+    """Lista balance por departamentos, ej http://zoka:8000/consorcio/1/depto3-D muestra el balance del departamento 3-D del consorcio 1"""
+    #TODO falta el template
+    consorcio = Consorcio.objects.get(id=consorcio_id)
+    deptos = Depto.objects.filter(consorcio=consorcio_id)
+    monto = Pago.objects.filter(balance=consorcio_id)
+    fecha = Balance.objects.filter(consorcio=consorcio_id)
+    return render_to_response('balance/pago_detail.html', {'consorcio': consorcio,                             'deptos':deptos, 'monto':monto, 'fecha': fecha})
 
 
 def listarAdministradora(request):
