@@ -44,7 +44,7 @@ class Depto(models.Model):
 	ala = models.CharField(max_length=2)
 	coeficiente = models.DecimalField(max_digits=6, decimal_places=4)
 	nombre_consorcista = models.CharField(max_length=200)
-	tel_consorcista = models.TextField(max_length=20)
+	tel_consorcista = models.CharField(max_length=20)
 	email_consorcista = models.EmailField(blank=True, null=True)
 	nombre_propietario = models.CharField(max_length=200, blank=True, null=True)
 	direccion_propietario = models.CharField(max_length=200, blank=True, null=True)

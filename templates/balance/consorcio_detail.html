@@ -1,13 +1,17 @@
 {% extends "base_general.html" %}
 
 {% block extrahead %}
-{% include 'inc-grid.html' %}
 {% endblock %}
 
 {% block jquery %}
 {% endblock jquery%}
 
 
+{% block nav %}
+<ul id="nav">
+	<li><a href="./balance/new">Nuevo Balance</a></li>
+</ul>
+{% endblock%}	
 
 {% block left %}
 
@@ -21,6 +25,7 @@
  <li><a href="./depto{{ depto.piso }}-{{ depto.ala }}"> {{ depto.piso }}º {{ depto.ala }}</a>  (Coeficiente: {{ depto.coeficiente }})</li>
 {% endfor %} 
 </ul>
+
 {% endblock left %}
 
 
@@ -29,7 +34,7 @@
 		<h2 style="margin-top:17px">Ultimos balances</h2>
 		<ul>
         {% for balance in balances %}
-			<li><a href="./{{ balance.fecha_vencimiento }}/">Balance del {{ balance.fecha_vencimiento }}</a> </li>
+			<li><a href="./{{ balance.fecha_vencimiento|date:"Y-m" }}/">Balance de {{ balance.fecha_vencimiento|date:"F \de Y" }}</a> </li>
         {% endfor %}
 		</ul>
 {% endblock box %}	
