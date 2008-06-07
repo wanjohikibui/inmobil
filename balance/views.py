@@ -6,6 +6,7 @@ from django.template import TemplateDoesNotExist
 from inmobil.balance.models import * 
 from django.shortcuts import render_to_response
 from django import newforms as forms
+from inmobil.historial.models import Pago
 
 
 def consorcio_detail(request, consorcio_id):
@@ -45,6 +46,14 @@ def balance_new(request, consorcio_id):
     
     
     
+def balance_detail(request, year, month, consorcio_id):
+    """muestra el detalle del pago por departamento"""
+    consorcio = Consorcio.objects.get(id=consorcio_id)
+    deptos = Depto.objects.filter(consorcio=consorcio_id)
+    monto = Pago.objects.filter(balance=consorcio_id)
+    fecha = Balance.objects.filter(consorcio=consorcio_id)
+    return render_to_response('balance/pago_detail.html', {'consorcio': consorcio,                             'deptos':deptos, 'monto':monto, 'fecha': fecha})
+
 
 
 def listarAdministradora(request):
