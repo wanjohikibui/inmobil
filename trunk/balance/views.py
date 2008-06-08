@@ -48,7 +48,11 @@ def balance_detail(request, consorcio_id, year, month):
     consorcio = Consorcio.objects.get(pk=consorcio_id)
     balance = Balance.objects.filter(consorcio__exact=consorcio, fecha_vencimiento__year=year, fecha_vencimiento__month=int(month))[0] #(se """SUPONE""" que hay solo 1 para este año/mes
     items = ItemBalance.objects.filter(balance__exact=balance)
-
+    total = 0
+    for item in items:
+        total = total + item.monto
+        
+    alto = len(items) * 17 + 18
     form_add_item = FormAddItem(request.POST)
     
     if request.method == 'POST':
@@ -60,7 +64,9 @@ def balance_detail(request, consorcio_id, year, month):
             return HttpResponseRedirect('/consorcio/' +consorcio_id + '/' + str(year) + '-' + str(month) +  '/' )            
         else:
             form_add_item = FormAddItem()
-    return render_to_response('balance/balance_detail.html',{"consorcio":consorcio, "balance":balance, "items":items, 'form_add_item':form_add_item })
+            
+            
+    return render_to_response('balance/balance_detail.html',{"consorcio":consorcio, "balance":balance, 'items':items, 'total':total, 'form_add_item':form_add_item, 'alto':alto})
             
     
 def balance_detail_table_ajax(request, balance_id):
