@@ -89,6 +89,9 @@ class ItemBalance(models.Model):
 	
 	def __unicode__(self):
 		return self.concepto
+	
+	class Admin:
+		pass
 
 class ItemBalanceDefecto(models.Model):
 	"""Estos son items que se ofrecen por defecto para un nuevo balance."""

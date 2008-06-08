@@ -7,7 +7,7 @@ from inmobil.balance.models import *
 from django.shortcuts import render_to_response
 from django import newforms as forms
 from inmobil.historial.models import Pago
-
+from django.db.models import Q
 
 def consorcio_detail(request, consorcio_id):
     """muestra el detalle del consorcio y sus balances"""
@@ -41,18 +41,62 @@ def balance_new(request, consorcio_id):
                                 {'form_balance': form_nuevo_balance, 'consorcio': consorcio})
     
     
+
+    
+def balance_detail(request, consorcio_id, year, month):
+    """muestra el detalle de un balance, y la posibilidad de modificar o agregar items"""
+
+    print consorcio_id 
+    print year
+    print month
+    consorcio = Consorcio.objects.get(pk=consorcio_id)
+    balance = Balance.objects.filter(consorcio__exact=consorcio, fecha_vencimiento__year=year, fecha_vencimiento__month=int(month))[0] #(se """SUPONE""" que hay solo 1 para este año/mes
+    items = ItemBalance.objects.filter(balance__exact=balance)
+    print items
+    
+    return render_to_response('balance/balance_detail.html',{"consorcio":consorcio, "balance":balance, "items":items })
+            
+    
+def balance_detail_table_ajax(request, balance_id):
+    causa = Balance.objects.get(pk=balance_id)
+    sentido = {'asc': '', 'desc': '-'}
+    columna = ['id','concepto', 'categoria', 'monto']
+    try:
+        dir = request.GET['dir']
+    except:
+        dir = 'desc'
+    try:
+        orden = request.GET['sort'] 
+    except:
+        orden = 1
+
+    items = ItemBalance.objects.filter(Q(balance=balance_id)).order_by(sentido[dir]+columna[int(orden)] )
+    return render_to_response('balance/balance-tabla-ajax.html', {'items': items})
     
     
     
     
-def balance_detail(request, year, month, consorcio_id):
-    """muestra el detalle del pago"""
-    #TODO falta mejorar esto
+    
+    
+    
+    
+    
+    
+    
+    
+def pago_detail(request, pago_id):
+    """Detalle de expensas para un departamento""" 
+    #TODO Estudiar conceptualmente
+    
+    #Esto antes era balance_detail. Lo cual está MAL. Balance_detail es el detalle 
+    #del gasto de todo el edificio, y pago_detail tiene que estar asociado a un depto en particular
+    
     consorcio = Consorcio.objects.get(id=consorcio_id)
     deptos = Depto.objects.filter(consorcio=consorcio_id)
     monto = Pago.objects.filter(balance=consorcio_id)
     fecha = Balance.objects.filter(consorcio=consorcio_id)
-    return render_to_response('balance/default_template.html', {'consorcio': consorcio,                             'deptos':deptos, 'monto':monto, 'fecha': fecha})
+    return render_to_response('balance/default_template.html', {'consorcio': consorcio, 'deptos':deptos, 'monto':monto, 'fecha': fecha})
+
 
 def depto_balance_detail(reques, consorcio_id, piso="3ºD", ala="D"):
     """Lista balance por departamentos, ej http://zoka:8000/consorcio/1/depto3-D muestra el balance del departamento 3-D del consorcio 1"""

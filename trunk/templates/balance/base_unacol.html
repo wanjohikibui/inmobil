@@ -35,6 +35,7 @@
 <div id="wrap">
 <div id="top">
 
+holaaa
 <h2><a href="#" title="Volver al inicio"> {{ admin.nombre }}</a></h2>
 <div id="menu">
 <ul>
@@ -49,13 +50,7 @@
 </div>
 </div>
 <div id="content">
-<div style="float: right;"><a href="javascript:ts('body',1)">[+]</a> | <a
-href="javascript:ts('body',-1)">[-]</a></div>
 
-<div id="unacol">
-{% block unacol %}
-{% endblock %}
-</div>
 
 
 <div id="left">
@@ -77,38 +72,6 @@ href="javascript:ts('body',-1)">[-]</a></div>
 {% endblock %}
 </div>
 
-
-
-
-{% block right %}
-<div id="right">
-{% block nav %}
-<ul id="nav">
-	<li><a href="#Home">Home</a></li>
-	<li><a href="#Archive">Archive</a></li>
-	<li><a href="#Link">Links</a></li>
-	<li><a href="#download">Download</a></li>
-	<li><a href="#support">Support</a></li>
-	<li><a href="#contact">Contact</a></li>
-</ul>
-{% endblock%}	
-
-
-	<div class="box">
-	{% block box %}	
-		<h2 style="margin-top:17px">Recent Entries</h2>
-		<ul>
-			<li><a href="#">Recent Entries1</a> <i>01 Des 06</i></li>
-			<li><a href="#">Recent Entries2</a> <i>01 Des 06</i></li>
-			<li><a href="#">Recent Entries3</a> <i>01 Des 06</i></li>
-			<li><a href="#">Recent Entries4</a> <i>01 Des 06</i></li>
-			<li><a href="#">Recent Entries5</a> <i>01 Des 06</i></li>
-		</ul>
-	{% endblock box %}	
-	</div>
-	
-</div>
-{% endblock right %}	
 
 
 <div id="clear"></div>
