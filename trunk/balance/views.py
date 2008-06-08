@@ -17,7 +17,6 @@ def consorcio_detail(request, consorcio_id):
     return render_to_response('balance/consorcio_detail.html', {'consorcio': consorcio, 
                             'deptos':deptos, 'balances':balances})
 
-
 FormBalanceNew = forms.form_for_model(Balance, fields=('fecha_vencimiento', 'observacion'))
 FormAddItem = forms.form_for_model(ItemBalance, fields=('concepto', 'categoria','monto'))
 
@@ -55,14 +54,14 @@ def balance_detail(request, year, month, consorcio_id):
     fecha = Balance.objects.filter(consorcio=consorcio_id)
     return render_to_response('balance/default_template.html', {'consorcio': consorcio,                             'deptos':deptos, 'monto':monto, 'fecha': fecha})
 
-def depto_balance_detail(reques, consorcio_id, piso, ala):
+def depto_balance_detail(reques, consorcio_id, piso="3ºD", ala="D"):
     """Lista balance por departamentos, ej http://zoka:8000/consorcio/1/depto3-D muestra el balance del departamento 3-D del consorcio 1"""
     #TODO falta el template
-    #TODO mostrar: D
+    #TODO No se como mierda recuperar el ID del departamento. 
     consorcio = Consorcio.objects.get(id=consorcio_id)
-    deptos = Pago.objects.filter(depto=piso)
-    monto = Pago.objects.filter(depto=piso)
-    return render_to_response('balance/ default_template.html', {'consorcio': consorcio,                             'deptos':deptos, 'monto':monto})
+    deptos = Pago.objects.get(id="1")
+    monto = Pago.objects.filter(depto="1")
+    return render_to_response('balance/default_template.html', {'consorcio': consorcio,                             'deptos':deptos, 'monto':monto})
 
 
 def listarAdministradora(request):
