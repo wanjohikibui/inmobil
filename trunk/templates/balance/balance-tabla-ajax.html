@@ -2,13 +2,13 @@
            <table>
                  <tbody>
 
-                   {% for item in items %}
-                    <tr>
-                    <td>{{ item.id }}</td>
-                    <td>{{ item.concepto }}</td>
-                    <td>{{ item.categoria }}</td>
-                    <td style="text-align:right">$ {{ item.monto }}</td>                  
-                    </tr>
-                   {% endfor %}    
+              {% for item in items %}
+                         <tr>
+                         <td>{{ item.id }}</td>
+                         <td><div class="edit-concepto" id="{{ item.id }}">{{ item.concepto }}</div></td>
+                         <td><div class="edit-categoria" id="{{ item.id }}">{{ item.categoria }}</td>
+                         <td style="text-align:right">$ <div class="edit-monto" id="{{ item.id }}">{{ item.monto }}</td>                  
+                         </tr>
+                        {% endfor %}               
                  </tbody>
                 </table>

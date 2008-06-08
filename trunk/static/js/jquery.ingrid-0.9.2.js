@@ -43,7 +43,7 @@ jQuery.fn.ingrid = function(o){
 		rowHoverClass: 'grid-row-hover',				// hovering over a row? use this class
 		rowSelection: true,											// allow row selection?
 		rowSelectedClass: 'grid-row-sel',				// hovering over a row? use this class
-		onRowSelect: function(tr, selected){},	// function to call when row is clicked
+		//onRowSelect: function(tr, selected){},	// function to call when row is clicked
 		
 		/* sorting */
 		sorting: true,

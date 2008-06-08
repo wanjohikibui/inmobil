@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #coding=utf-8
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.template import Template
 from django.template import TemplateDoesNotExist
 from inmobil.balance.models import * 
@@ -52,7 +52,7 @@ def balance_detail(request, consorcio_id, year, month):
     for item in items:
         total = total + item.monto
         
-    alto = len(items) * 17 + 18
+    alto = int(len(items) * 19) + 19
     form_add_item = FormAddItem(request.POST)
     
     if request.method == 'POST':
@@ -86,8 +86,28 @@ def balance_detail_table_ajax(request, balance_id):
     return render_to_response('balance/balance-tabla-ajax.html', {'items': items})
     
     
+def balance_item_modify_ajax(request, campo):
+    print request.POST
+    try:
+        id = int(request.POST[u'id'][0])
+    except KeyError:
+        return HttpResponse('no hay valor')                
+        
+    item = ItemBalance.objects.get(pk=id)
+    print u"item: " + unicode(item)
+
+    if campo=='concepto':
+        item.concepto = request.POST['value']
+    if campo=='categoria':
+        categ = CategoriaItem.objects.get(nombre=request.POST['value'])
+        item.categoria = categ
+    if campo=='monto':
+        item.monto = request.POST['value']
+    item.save()
+    return HttpResponse(request.POST['value'])
     
     
+        
     
     
     
