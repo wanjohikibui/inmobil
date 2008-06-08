@@ -1,0 +1,31 @@
+    {% extends "base_general.html" %}
+
+{% block left %}
+
+<h2>Consorcio "{{ consorcio.nombre }}" </h2>
+<p>{{ consorcio.direccion }}</p>
+
+<p>Balance de pagos del departamento:</p>
+ 
+<ul>
+
+{% for deptos in deptos %}
+
+<li>El departamento {{deptos.depto}} pago {{deptos.monto_a_pagar}} el día {{deptos.fecha_pago}}</li>
+
+{% endfor %}
+</ul>
+
+
+{% endblock left %}
+
+
+
+{% block box %}	
+		<h2 style="margin-top:17px">Ultimos balances</h2>
+		<ul>
+        {% for balance in balances %}
+			<li><a href="./{{ balance.fecha_vencimiento }}/">Balance del {{ balance.fecha_vencimiento }}</a> </li>
+        {% endfor %}
+		</ul>
+{% endblock box %}	
