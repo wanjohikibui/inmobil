@@ -16,9 +16,11 @@ urlpatterns = patterns('',
     (r'^consorcio/(?P<consorcio_id>\d+)/balance/new', 'inmobil.balance.views.balance_new'),
     #(r'^consorcio/(?P<consorcio_id>\d+)/balance/(?P<balance_id>\d+)', 'inmobil.balance.views.balance_add_modify'),
     
-    #TODO Esta url no funciona
-    (r'^consorcio/(?P<consorcio_id>\d+)/depto(?P<piso>\d{1})-(?P<ala>\d[A-Z])/', 'inmobil.balance.views.depto_balance_detail'),
+<<<<#ahora anda
+    (r'^consorcio/(?P<consorcio_id>\d+)/depto(?P<piso>\d+)-(?P<ala>[A-Z]{1})/', 'inmobil.balance.views.depto_balance_detail'),
     
+    
+====
     (r'^balance/detalle-(?P<balance_id>\d+)', 'inmobil.balance.views.balance_detail_table_ajax'),
 
     #(r'^consorcios/$', 'inmobil.views.listarConsorcios'),     
