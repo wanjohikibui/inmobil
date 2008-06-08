@@ -1,0 +1,59 @@
+{% extends "base_unacol.html" %}
+
+{% block title %}{{ consorcio.nombre }} - Balance del {{ balance.fecha_vencimiento|date:"m\/Y" }}{% endblock title %}
+
+{% block extrahead %}
+<script type="text/javascript" src="/static/js/jquery.ingrid-0.9.2.js"></script>
+<link rel="stylesheet" href="/static/js/ingrid.css" type="text/css" media="screen" />
+{% endblock %}
+
+
+{% block jquery %}
+<script type="text/javascript">
+$(document).ready(
+	function() {
+		$("#balance").ingrid({ 
+			url: '/balance/detalle-{{ balance.id }}',
+			initialLoad: true,			
+			height: 350,
+			colWidths: [25,300,100,100],		// width of each column
+			rowClasses: ['grid-row-style1','grid-row-style2'],
+			resizableCols: false,
+			paging: false,
+			sorting: true
+		});
+	}
+); 
+</script>
+{% endblock jquery%}
+
+
+{% block unacol %}
+
+<h2>Consorcio "{{ consorcio.nombre }}" - {{ balance.fecha_vencimiento|date:"F \de Y" }}</h2>
+<p>vencimiento {{ balance.fecha_vencimiento|date:"d-m-Y" }} - Identificador de Balance: {{ balance.id }}</p>
+
+
+<table id="balance">
+<thead>
+<tr><th>#</th><th>Concepto</th><th>Categoría</th><th>Monto</th></tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+
+
+
+
+<!--#TODO crear otra vista/template para cargar cada item-->
+
+
+<!-- 
+<form action="./new" method="POST">
+{{ form_balance.as_p }}
+<input type="submit" value="crear" />
+</form>
+ -->
+
+
+{% endblock %}

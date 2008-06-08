@@ -1,0 +1,28 @@
+{% extends "base_general.html" %}
+
+{% block extrahead %}
+{% endblock %}
+
+
+{% block jquery %}
+{% endblock jquery%}
+
+
+{% block left %}
+
+<h2>Consorcio "{{ consorcio.nombre }}" - Balance {{ balance.fecha_vencimiento|date:"F \de Y" }}</h2>
+
+#TODO crear otra vista/template para cargar cada item
+
+<form action="./new" method="POST">
+{{ form_balance.as_p }}
+<input type="submit" value="crear" />
+</form>
+
+
+{% endblock left %}
+
+
+
+{% block box %}	
+{% endblock box %}	

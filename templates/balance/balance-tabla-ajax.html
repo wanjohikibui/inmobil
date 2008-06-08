@@ -1,0 +1,14 @@
+
+           <table>
+                 <tbody>
+
+                   {% for item in items %}
+                    <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.concepto }}</td>
+                    <td>{{ item.categoria }}</td>
+                    <td style="text-align:right">{{ item.monto }}</td>                  
+                    </tr>
+                   {% endfor %}    
+                 </tbody>
+                </table>

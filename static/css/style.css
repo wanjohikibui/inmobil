@@ -171,6 +171,13 @@ blockquote{
 	display: inline;
 }
 
+#unacol {
+	width: 700px;
+	float:left;
+	display: block;
+       margin-left: 20px;
+	display: inline;
+}
 
 /**** Sidebar ***/
 
