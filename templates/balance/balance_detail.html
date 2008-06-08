@@ -15,7 +15,7 @@ $(document).ready(
 		$("#balance").ingrid({ 
 			url: '/balance/detalle-{{ balance.id }}',
 			initialLoad: true,			
-			height: 350,
+			height: {{ alto }},
 			colWidths: [25,350,110,100],		// width of each column
 			rowClasses: ['grid-row-style1','grid-row-style2'],
 			resizableCols: false,
@@ -41,7 +41,7 @@ $(document).ready(
 <tbody>
 </tbody>
 </table>
-
+<table><tr class="grid-row-style3"><td colspan="3" style="text-align:right" width="491px">Total:</td><td width="100px" style="text-align:right">$ {{ total }}</td></tr></table>
 
 
 
