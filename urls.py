@@ -22,6 +22,9 @@ urlpatterns = patterns('',
     
 
     (r'^balance/detalle-(?P<balance_id>\d+)', 'inmobil.balance.views.balance_detail_table_ajax'),
+    
+    #esta url es para la modificacion inline de items.
+    (r'^balance/item/(?P<campo>(concepto|categoria|monto))', 'inmobil.balance.views.balance_item_modify_ajax'),
 
     #(r'^consorcios/$', 'inmobil.views.listarConsorcios'),     
     
