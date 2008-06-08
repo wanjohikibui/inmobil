@@ -1,0 +1,13 @@
+{% extends "base_general.html" %}
+
+{% block left %}
+
+<h2>Lista de Administradoras de consorcios</h2>
+
+<ul>
+{% for administradora_item in administradora_list %}
+ <li><a href="/administradora/{{ administradora_item.id }}"> {{ administradora_item.nombre }}</a></li>
+{% endfor %} 
+</ul>
+{% endblock left %}
+
