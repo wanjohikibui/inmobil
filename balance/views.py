@@ -18,8 +18,6 @@ def consorcio_detail(request, consorcio_id):
                             'deptos':deptos, 'balances':balances})
 
 FormBalanceNew = forms.form_for_model(Balance, fields=('fecha_vencimiento', 'observacion'))
-FormAddItem = forms.form_for_model(ItemBalance, fields=('concepto', 'categoria','monto'))
-
 
 def balance_new(request, consorcio_id):
     """vista de formulario para generar un nuevo balance para el consorcio."""   
@@ -41,20 +39,28 @@ def balance_new(request, consorcio_id):
                                 {'form_balance': form_nuevo_balance, 'consorcio': consorcio})
     
     
-
+FormAddItem = forms.form_for_model(ItemBalance, fields=('concepto', 'categoria','monto'))
     
 def balance_detail(request, consorcio_id, year, month):
     """muestra el detalle de un balance, y la posibilidad de modificar o agregar items"""
 
-    print consorcio_id 
-    print year
-    print month
+
     consorcio = Consorcio.objects.get(pk=consorcio_id)
     balance = Balance.objects.filter(consorcio__exact=consorcio, fecha_vencimiento__year=year, fecha_vencimiento__month=int(month))[0] #(se """SUPONE""" que hay solo 1 para este año/mes
     items = ItemBalance.objects.filter(balance__exact=balance)
-    print items
+
+    form_add_item = FormAddItem(request.POST)
     
-    return render_to_response('balance/balance_detail.html',{"consorcio":consorcio, "balance":balance, "items":items })
+    if request.method == 'POST':
+        #procesado de Formularios.             
+        if  form_add_item.is_valid():
+            instance = form_add_item.save(commit=False) #hago un save falso para guardar los demas datos
+            instance.balance = balance
+            instance.save()
+            return HttpResponseRedirect('/consorcio/' +consorcio_id + '/' + str(year) + '-' + str(month) +  '/' )            
+        else:
+            form_add_item = FormAddItem()
+    return render_to_response('balance/balance_detail.html',{"consorcio":consorcio, "balance":balance, "items":items, 'form_add_item':form_add_item })
             
     
 def balance_detail_table_ajax(request, balance_id):
