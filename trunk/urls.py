@@ -17,7 +17,7 @@ urlpatterns = patterns('',
     #(r'^consorcio/(?P<consorcio_id>\d+)/balance/(?P<balance_id>\d+)', 'inmobil.balance.views.balance_add_modify'),
     
 #ahora anda
-    (r'^consorcio/(?P<consorcio_id>\d+)/depto(?P<piso>\d+)-(?P<ala>[A-Z]{1})/', 'inmobil.balance.views.depto_balance_detail'),
+    (r'^consorcio/(?P<consorcio_id>\d+)/depto(?P<piso>\d+)-(?P<ala>[A-Z]{1})/', 'inmobil.historial.views.depto_balance_detail'),
     
     
 

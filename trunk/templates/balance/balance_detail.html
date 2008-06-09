@@ -54,14 +54,7 @@ $(document).ready(
 <tr><th>#</th><th>Concepto</th><th>Categoría</th><th>Monto</th></tr>
 </thead>
 <tbody>
-{% for item in items %}
-                         <tr>
-                         <td>{{ item.id }}</td>
-                         <td><div class="edit-concepto" id="{{ item.id }}">{{ item.concepto }}</div></td>
-                         <td><div class="edit-categoria" id="{{ item.id }}">{{ item.categoria }}</td>
-                         <td style="text-align:right">$ <div class="edit-monto" id="{{ item.id }}">{{ item.monto }}</td>                  
-                         </tr>
-                        {% endfor %} 
+
 </tbody>
 </table>
 <table><tr class="grid-row-style3"><td colspan="3" style="text-align:right" width="491px">Total:</td><td width="100px" style="text-align:right">$ {{ total }}</td></tr></table>
