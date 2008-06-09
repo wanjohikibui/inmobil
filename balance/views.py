@@ -130,25 +130,6 @@ def pago_detail(request, pago_id):
     return render_to_response('balance/default_template.html', {'consorcio': consorcio, 'deptos':deptos, 'monto':monto, 'fecha': fecha})
 
 
-def depto_balance_detail(reques, consorcio_id, piso, ala):
-    """Lista balance por departamentos, ej http://zoka:8000/consorcio/1/depto3-D muestra el balance del departamento 3-D del consorcio 1"""
-    #TODO falta el template
-    #TODO No se como mierda recuperar el ID del departamento. 
-    
-    
-    #consorcio = Consorcio.objects.get(id=consorcio_id)
-    consorcio = Consorcio.objects.get(pk=consorcio_id)
-    balance = Balance.objects.filter(consorcio__exact=consorcio)[0]
-    depto = Depto.objects.filter(consorcio__exact=consorcio_id, piso__exact=piso, ala__exact=ala, consorcio__exact=consorcio)[0]
-    deptos = Pago.objects.filter(depto__exact=depto)
-    print consorcio
-    print balance
-    print deptos
-    print depto
-    #deptos = Pago.objects.get(id="1")
-    #monto = Pago.objects.filter(depto="1")
-    return render_to_response('balance/depto_balance_detail.html', {'consorcio': consorcio,                             'deptos':deptos, 'depto': depto})
-
 
 def listarAdministradora(request):
     m_list = Administradora.objects.all()

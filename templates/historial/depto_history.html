@@ -5,16 +5,15 @@
 <h2>Consorcio "{{ consorcio.nombre }}" </h2>
 <p>{{ consorcio.direccion }}</p>
 
-<p>Balance de pagos del departamento:</p>
- 
+<p>Balance de pagos del departamento {{ depto.piso }}º {{ depto.ala }} </p>
+
 <ul>
-
-{% for deptos in deptos %}
-
-<li>El departamento {{deptos.depto}} pago {{deptos.monto_a_pagar}} el día {{deptos.fecha_pago}}</li>
-
-{% endfor %}
+{% for pago in pagos %}
+ <li><a href="/consorcio/{{ consorcio_item.id }}"> Expensa {{ pago.balance.fecha_vencimiento|date:"F \de Y" }}</a> <br />
+ {% if pago.fecha_pago %} Pagado el {{ pago.fecha_pago|date:"d-m-Y" }} {% else %} No pagado aun {% endif %} </li>
+{% endfor %} 
 </ul>
+ 
 
 
 {% endblock left %}
