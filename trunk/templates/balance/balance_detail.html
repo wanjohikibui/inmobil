@@ -11,6 +11,8 @@
 
 {% block jquery %}
 <script type="text/javascript">
+
+
 $(document).ready(
      
 	function() {
@@ -18,7 +20,7 @@ $(document).ready(
 		
 		$("#balance").ingrid({ 
 			url: '/balance/detalle-{{ balance.id }}',
-			//initialLoad: true,			
+			initialLoad: false,			
 			height: {{ alto }},
 			colWidths: [25,350,110,100],		// width of each column
 			rowClasses: ['grid-row-style1','grid-row-style2'],
@@ -27,6 +29,10 @@ $(document).ready(
 			rowSelection: false,
 			sorting: true
 		});
+        
+        {% if not balance.balance_cerrado %}
+        {# el balance no está cerrado y puede ser editable #}
+        
 		$(".edit-concepto").editable("/balance/item/concepto", {
 				event     : "dblclick"
 		});		
@@ -36,6 +42,8 @@ $(document).ready(
 		$(".edit-monto").editable("/balance/item/monto", {
 						event     : "dblclick"
 		});						
+        {% endif %}
+        
 	}
 ); 
 </script>
@@ -44,24 +52,39 @@ $(document).ready(
 
 
 {% block unacol %}
-
 <h2>Consorcio "{{ consorcio.nombre }}" - {{ balance.fecha_vencimiento|date:"F \de Y" }}</h2>
 <p>vencimiento {{ balance.fecha_vencimiento|date:"d-m-Y" }} - Identificador de Balance: {{ balance.id }}</p>
 
+{% if mensaje %}
+<div class="mensaje">{{ mensaje }}</div>
+{% endif %}
+
+{% if balance.balance_cerrado %}
+<div style="border: 1px solid #000">Este Balance se cerró el dia {{ balance.fecha_creacion }}</div>
+{% endif %}
 
 <table id="balance">
 <thead>
 <tr><th>#</th><th>Concepto</th><th>Categoría</th><th>Monto</th></tr>
 </thead>
 <tbody>
-
+{% for item in items %}
+                         <tr>
+                         <td>{{ item.id }}</td>
+                         <td><div class="edit-concepto" id="{{ item.id }}">{{ item.concepto }}</div></td>
+                         <td><div class="edit-categoria" id="{{ item.id }}">{{ item.categoria }}</td>
+                         <td style="text-align:right">$ <span class="edit-monto" id="{{ item.id }}">{{ item.monto }}</span></td>                  
+                         </tr>
+                        {% endfor %}               
 </tbody>
 </table>
-<table><tr class="grid-row-style3"><td colspan="3" style="text-align:right" width="491px">Total:</td><td width="100px" style="text-align:right">$ {{ total }}</td></tr></table>
+<table><tr class="grid-row-style3"><td colspan="3" style="text-align:right" width="491px">Total:</td><td width="100px" style="text-align:right">$ {{ balance.total }}</td></tr></table>
 
 
 
 <!--#TODO crear otra vista/template para cargar cada item-->
+
+{% if not balance.balance_cerrado %}
 
 <h2>Agregar Items</h2>
 
@@ -69,6 +92,14 @@ $(document).ready(
 {{ form_add_item.as_p }}
 <input type="submit" value="agregar al balance" />
 </form>
+
+
+<form action="./cerrar" method="POST">
+<input type="submit" value="CERRAR BALANCE Y GENERAR EXPENSAS DEL MES" onclick="alert('Esto genera los comprobantes de expensas que no se podrán modificar')" />
+</form>
+
+
+{% endif %}
 
 
 

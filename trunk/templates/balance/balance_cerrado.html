@@ -1,0 +1,29 @@
+{% extends "base_general.html" %}
+
+{% block title %}{{ consorcio.nombre }} - Balance del {{ balance.fecha_vencimiento|date:"m\/Y" }}{% endblock title %}
+
+{% block extrahead %}
+{% endblock %}
+
+
+{% block jquery %}
+{% endblock jquery%}
+
+
+{% block left %}
+<h2>Consorcio "{{ consorcio.nombre }}" </h2>
+
+El balance de {{ balance.fecha_vencimiento|date:"F \de Y" }} ha sido correctamente cerrado. 
+Las expensas para los distintos deptos del consorcio han sido generadas.
+
+{% endblock %}
+
+{% block nav %}
+<ul id="nav">
+<li><a href="/consorcio/{{ consorcio.id }}">Ver detalle del consorcio</a></li>
+<li><a href="/consorcio/{{ consorcio.id }}/{{ balance.fecha_vencimiento|date:"Y-m" }}">Volver al detalle del balance</a></li>
+</ul>
+{% endblock %}
+
+
+

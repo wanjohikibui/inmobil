@@ -14,12 +14,13 @@ urlpatterns = patterns('',
     (r'index/$', 'inmobil.views.index'), 
     
     (r'^consorcio/(?P<consorcio_id>\d+)/$', 'inmobil.balance.views.consorcio_detail'),
-
-    (r'^consorcio/(?P<consorcio_id>\d+)/(?P<year>\d{4})-(?P<month>\d{2})/$', 'inmobil.balance.views.balance_detail'),    
+    
     (r'^consorcio/(?P<consorcio_id>\d+)/balance/new', 'inmobil.balance.views.balance_new'),
+    (r'^consorcio/(?P<consorcio_id>\d+)/(?P<year>\d{4})-(?P<month>\d{2})/cerrar$', 'inmobil.balance.views.balance_cerrar'),    
+    (r'^consorcio/(?P<consorcio_id>\d+)/(?P<year>\d{4})-(?P<month>\d{2})/$', 'inmobil.balance.views.balance_detail'),    
     #(r'^consorcio/(?P<consorcio_id>\d+)/balance/(?P<balance_id>\d+)', 'inmobil.balance.views.balance_add_modify'),
     
-#ahora anda
+    
     (r'^consorcio/(?P<consorcio_id>\d+)/depto(?P<piso>\d+)-(?P<ala>[A-Z]{1})/', 'inmobil.historial.views.depto_balance_detail'),
     
     
