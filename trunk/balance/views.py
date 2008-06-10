@@ -158,17 +158,20 @@ def pago_detail(request, pago_id):
 
 
 
+
+FormAddDepto = forms.form_for_model(Depto, fields=('consorcio_id', 'piso_id','ala_id'))
+##FormBalanceNew = forms.form_for_model(Balance, fields=('fecha_vencimiento', 'observacion'))
 def depto_new(request, consorcio_id, piso_id, ala_id):
     
     consorcio = Consorcio.objects.get(id=consorcio_id)
     
-    form_nuevo_depto = FormBalanceNew(request.POST)
+    form_nuevo_depto = FormAddDepto(request.POST)
     if request.method == 'POST':
         #procesado de Formularios.             
         if  form_nuevo_depto.is_valid():
             #TODO verificar que no exista un balance para el mismo mes/año
             instance = form_nuevo_depto.save(commit=False) #hago un save falso para guardar los demas datos
-            instance.consorcio = consorcio
+            instance.consorcio = consorcio_id
             instance.piso = piso_id
             instance.ala = ala_id
             instance.save()
@@ -176,9 +179,9 @@ def depto_new(request, consorcio_id, piso_id, ala_id):
             
             return HttpResponseRedirect('/consorcio/' +consorcio_id + '/' + request.POST['fecha_vencimiento'][0:7] + '/' )            
         else:
-            form_nuevo_balance = FormBalanceNew()  
-    return render_to_response('balance/depto_form.html',
-                                {'form_balance': form_nuevo_balance, 'consorcio': consorcio})
+            form_nuevo_depto = FormAddDepto()  
+    return render_to_response('balance/depto_new.html',
+                                {'form_depto': form_nuevo_depto, 'consorcio': consorcio})
 
 
 def listarAdministradora(request):

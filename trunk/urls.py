@@ -48,7 +48,7 @@ urlpatterns = patterns('',
 
    #Alta/Modificacion de nuevos departamentos 
   (r'^depto/create/$', create_update.create_object, depto),
-  (r'^depto/create/new', 'inmobil.balance.views.depto_new'),
+  (r'^depto/(?P<consorcio_id>\d+)/(?P<piso_id>\d+)-(?P<ala_id>[A-Z]{1})/create/new', 'inmobil.balance.views.depto_new'),
   (r'^depto/edit/(?P<object_id>d+)/$', create_update.update_object, depto),
 
 
