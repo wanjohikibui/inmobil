@@ -34,3 +34,11 @@ consorcio_info  = {
     "queryset" : Consorcio.objects.all(),
     "template_object_name" : "consorcio",    
 }
+
+#Para info sobre crear/modificar/borrar objetos con vistas genericas ver pag 379 djangobook, "D5 Vistas genericas para crear/modificar/borrar"
+#No se si el template depto_new.html tiene que estar dentro de balance.. :-/
+depto = {
+"model" : Depto,
+"template_name": "balance/depto_new.html",
+
+}

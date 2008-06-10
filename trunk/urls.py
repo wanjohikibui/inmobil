@@ -4,6 +4,9 @@ from django.conf.urls.defaults import *
 from django.views.generic import list_detail 
 from inmobil.balance.models import Consorcio, Administradora, Depto
 from inmobil.views import *
+from django.views.generic import create_update
+
+
 
 
 urlpatterns = patterns('',
@@ -40,6 +43,14 @@ urlpatterns = patterns('',
  	(r'^static/(.*)$','django.views.static.serve',{'document_root': 'static/', 'show_indexes': True}),
     #directorio de uploads accesible via web
  	(r'^media/(.*)$','django.views.static.serve',{'document_root': 'upload/', 'show_indexes': True}),
+
+
+   #Alta/Modificacion de nuevos departamentos 
+  (r'^depto/create/$', create_update.create_object, depto),
+  (r'^depto/create/new', 'inmobil.balance.views.depto_new'),
+  (r'^depto/edit/(?P<object_id>d+)/$', create_update.update_object, depto),
+
+
 
     # Uncomment this for admin:
     (r'^admin/', include('django.contrib.admin.urls')),

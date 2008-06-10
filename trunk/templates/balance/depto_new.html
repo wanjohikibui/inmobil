@@ -1,0 +1,29 @@
+    {% extends "base_general.html" %}
+{% block left %}
+
+
+
+
+<form action="./new" method="POST">
+  <p><label for="piso_id">Cantidad de pisos:</label> {{ form.piso }}</p>
+    <p><label for="ala_id">Alas:</label> {{ form.ala }}</p>
+    <p><label for="consorcio_id">Consorcio:</label> {{ form.consorcio }}</p>
+    
+<input type="submit" value="crear" />
+</form>
+
+
+
+
+{% endblock left %}
+
+
+
+{% block box %}	
+		<h2 style="margin-top:17px">Ultimos balances</h2>
+		<ul>
+        {% for balance in balances %}
+			<li><a href="./{{ balance.fecha_vencimiento }}/">Balance del {{ balance.fecha_vencimiento }}</a> </li>
+        {% endfor %}
+		</ul>
+{% endblock box %}	
