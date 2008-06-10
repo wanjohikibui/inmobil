@@ -37,6 +37,7 @@ depto1 = {
 
 FormConsorcioNew = forms.form_for_model(Consorcio)
 
+
 def consorcio_new(request):
     """vista de formulario para crear un nuevo consorcio y sus deptos."""   
     form_nuevo_consorcio = FormConsorcioNew(request.POST)
@@ -62,12 +63,31 @@ def consorcio_new(request):
     return render_to_response('consorcio_new.html',
                                 {'form_consorcio': form_nuevo_consorcio})
 
+FormDeptoNew = forms.form_for_model(Depto, fields=('piso', 'ala', 'coeficiente','nombre_consorcista', 
+					'tel_consorcista', 'email_consorcista', 'nombre_propietario', 'direccion_propietario'
+					'tel_propietario','email_propietario'))
 
 def consorcio_deptos(request, consorcio_id):
 	consorcio = Consorcio.objects.get(id=consorcio_id)
 	deptos = Depto.objects.filter(consorcio__exact=consorcio)
 	alto = int(len(deptos) * 19) + 19
-	return render_to_response('consorcio_deptos.html', {'consorcio':consorcio, 'deptos':deptos, 'alto':alto})
+	
+	form_nuevo_depto = FormDeptoNew(request.POST)
+	
+	if request.method == 'POST':
+	        #procesado de Formularios.             
+	        if  form_nuevo_depto.is_valid():
+				depto = form_nuevo_depto.save(commit=False)
+				depto.consorcio = consorcio
+				depto.save()
+				
+				
+				return HttpResponseRedirect('/consorcio/' + str(consorcio.id) + '/deptos')
+			
+	        else:
+	            form_nuevo_depto = FormDeptoNew()  	
+				
+	return render_to_response('consorcio_deptos.html', {'consorcio':consorcio, 'deptos':deptos, 'alto':alto, 'form_nuevo_depto':form_nuevo_depto})
 
 
 
