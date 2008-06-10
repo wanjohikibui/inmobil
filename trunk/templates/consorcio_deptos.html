@@ -1,0 +1,96 @@
+{% extends "base_general.html" %}
+
+{% block title %}{{ consorcio.nombre }} - Listado de departamentos {% endblock title %}
+
+{% block extrahead %}
+<script type="text/javascript" src="/static/js/jquery.ingrid-0.9.2.js"></script>
+<script type="text/javascript" src="/static/js/jquery.jeditable.pack.js"></script>
+<link rel="stylesheet" href="/static/js/ingrid.css" type="text/css" media="screen" />
+{% endblock %}
+
+
+{% block jquery %}
+<script type="text/javascript">
+
+
+$(document).ready(
+     
+	function() {
+		
+		
+		$("#deptos").ingrid({ 
+			//url: '/balance/detalle-{{ balance.id }}',
+			//initialLoad: false,			
+			height: {{ alto }},
+			colWidths: [25,25,50,120,100,120],		// width of each column
+			rowClasses: ['grid-row-style1','grid-row-style2'],
+			resizableCols: false,
+			paging: false,
+			rowSelection: false,
+			sorting: false
+		});
+       
+        
+		$(".edit-piso").editable("/depto/ajax/piso", {
+				event     : "dblclick"
+		});		
+		$(".edit-ala").editable("/depto/ajax/ala", {
+				event     : "dblclick"
+		});				
+		$(".edit-coeficiente").editable("/depto/ajax/coeficiente", {
+						event     : "dblclick"
+		});						
+        
+        $(".edit-consorcista").editable("/depto/ajax/consorcista", {
+        						event     : "dblclick"
+        		});						        
+        
+        $(".edit-telefono").editable("/depto/ajax/telefono", {
+                						event     : "dblclick"
+                		});						                
+        
+        $(".edit-email").editable("/depto/ajax/email", {
+                        						event     : "dblclick"
+        });						                        
+	}
+); 
+</script>
+
+{% endblock jquery%}
+
+
+{% block left %}
+<h2>{{ consorcio.nombre }} - Listado de departamentos</h2>
+<p>Doble click en un campo para modificar</p>
+
+
+<table id="deptos">
+<thead>
+<tr><th>Piso</th><th>Ala</th><th>Coeficiente</th><th>Consorcista</th><th>Telefono</th><th>Email</th></tr>
+</thead>
+<tbody>
+{% for depto in deptos %}
+                         <tr>
+                         <td style="text-align:right"><span class="edit-piso" id="{{ depto.id }}">{% ifequal depto.piso 0 %}PB {% else %}{{ depto.piso }}{% endifequal %}</span></td>
+                         <td style="text-align:right"><div class="edit-ala" id="{{ depto.ala }}">{{ depto.ala }}</div></td>
+                         <td style="text-align:right"><div class="edit-coeficiente" id="{{ depto.id }}">{{ depto.coeficiente }}</td>
+                         <td><div class="edit-consorcista" id="{{ depto.id }}">{{ depto.consorcista }}</td>
+                         <td><div class="edit-telefono" id="{{ depto.id }}">{{ depto.tel_consorcista }}</td>
+                        <td><div class="edit-email" id="{{ depto.id }}">{{ depto.email_consorcista }}</td>
+                         </tr>
+{% endfor %}               
+</tbody>
+</table>
+
+
+FALTA: agregar-eliminar deptos individuales.
+
+{% endblock %}
+
+{% block nav %}
+<ul id="nav">
+<li><a href="/consorcio/{{ consorcio.id }}">Ir al consorcio</a></li>
+</ul>
+{% endblock %}
+
+{% block box %}{% endblock %}
