@@ -1,0 +1,27 @@
+{% extends "base_general.html" %}
+
+{% block extrahead %}
+{% endblock %}
+
+
+{% block jquery %}
+{% endblock jquery%}
+
+
+{% block left %}
+
+<h2>Eliminar el depto {{ depto }} del consorcio {{ consorcio }}</h2>
+
+
+Confirmar la eliminación de este depto?	Esto eliminará tambien todo el historial de pago del departamento. 
+<form action="./delete" method="GET">
+<input type="hidden" name="confirm" value="1" />
+<input type="submit" value="Confirmar" />
+</form>
+
+{% endblock left %}
+
+
+
+{% block box %}	
+{% endblock box %}	
