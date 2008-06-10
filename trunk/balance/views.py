@@ -79,7 +79,7 @@ def balance_cerrar(request, consorcio_id, year, month):
     balance = Balance.objects.filter(consorcio__exact=consorcio, fecha_vencimiento__year=year, fecha_vencimiento__month=int(month))[0]
     if not balance.balance_cerrado:
         balance.balance_cerrado = True
-        
+        balance.save()
         #se agregan expensas (pagos) para todos los deptos de consorcio
         deptos = Depto.objects.filter(consorcio__exact=consorcio)
         for depto in deptos:
@@ -131,13 +131,6 @@ def balance_item_modify_ajax(request, campo):
         item.monto = request.POST['value']
     item.save()
     return HttpResponse(request.POST['value'])
-    
-    
-        
-    
-    
-    
-    
     
     
     
