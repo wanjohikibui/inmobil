@@ -4,6 +4,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django import newforms as forms
 from inmobil.balance.models import *
+from inmobil.historial.models	import Pago
 
 def index(request):
 	"""vista de la pagina inicial del sistema"""
@@ -27,6 +28,12 @@ depto = {
 "model" : Depto,
 "template_name": "balance/depto_new.html",
 }
+
+
+depto1 = {
+"model" : Depto,
+}
+
 
 FormConsorcioNew = forms.form_for_model(Consorcio)
 
@@ -63,5 +70,23 @@ def consorcio_deptos(request, consorcio_id):
 	return render_to_response('consorcio_deptos.html', {'consorcio':consorcio, 'deptos':deptos, 'alto':alto})
 
 
-	
+
+def depto_delete(request, consorcio_id, depto_id):
+	consorcio = Consorcio.objects.get(id=consorcio_id)
+	depto = Depto.objects.get(id=depto_id)
+	if depto.consorcio == consorcio:
+		try:
+			confirm = request.GET['confirm']
+			#borra tambien todas las expensas de este depto. 
+			pagos = Pago.objects.filter(depto__exact=depto)
+			for pago in pagos:
+				pago.delete()
+			depto.delete() 
+			return HttpResponseRedirect('/consorcio/' + str(consorcio.id) + '/deptos')
+		except:
+			return render_to_response('balance/depto_confirm_delete.html', {'consorcio':consorcio, 'depto':depto})
+	else:
+		return HttpResponse('el depto no pertenece a este consorcio')
+			
+		
 

@@ -22,7 +22,7 @@ $(document).ready(
 			//url: '/balance/detalle-{{ balance.id }}',
 			//initialLoad: false,			
 			height: {{ alto }},
-			colWidths: [25,25,50,120,100,120],		// width of each column
+			colWidths: [20,25,25,50,120,100,120],		// width of each column
 			rowClasses: ['grid-row-style1','grid-row-style2'],
 			resizableCols: false,
 			paging: false,
@@ -31,12 +31,6 @@ $(document).ready(
 		});
        
         
-		$(".edit-piso").editable("/depto/ajax/piso", {
-				event     : "dblclick"
-		});		
-		$(".edit-ala").editable("/depto/ajax/ala", {
-				event     : "dblclick"
-		});				
 		$(".edit-coeficiente").editable("/depto/ajax/coeficiente", {
 						event     : "dblclick"
 		});						
@@ -66,13 +60,14 @@ $(document).ready(
 
 <table id="deptos">
 <thead>
-<tr><th>Piso</th><th>Ala</th><th>Coeficiente</th><th>Consorcista</th><th>Telefono</th><th>Email</th></tr>
+<tr><th>X</th><th>Piso</th><th>Ala</th><th>Coeficiente</th><th>Consorcista</th><th>Telefono</th><th>Email</th></tr>
 </thead>
 <tbody>
 {% for depto in deptos %}
                          <tr>
-                         <td style="text-align:right"><span class="edit-piso" id="{{ depto.id }}">{% ifequal depto.piso 0 %}PB {% else %}{{ depto.piso }}{% endifequal %}</span></td>
-                         <td style="text-align:right"><div class="edit-ala" id="{{ depto.ala }}">{{ depto.ala }}</div></td>
+                        <td><a href="./deptos/{{ depto.id }}/delete">X</a></td>
+                         <td style="text-align:right">{% ifequal depto.piso 0 %}PB {% else %}{{ depto.piso }}{% endifequal %}</td>
+                         <td style="text-align:right">{{ depto.ala }}</td>
                          <td style="text-align:right"><div class="edit-coeficiente" id="{{ depto.id }}">{{ depto.coeficiente }}</td>
                          <td><div class="edit-consorcista" id="{{ depto.id }}">{{ depto.consorcista }}</td>
                          <td><div class="edit-telefono" id="{{ depto.id }}">{{ depto.tel_consorcista }}</td>
@@ -82,8 +77,6 @@ $(document).ready(
 </tbody>
 </table>
 
-
-FALTA: agregar-eliminar deptos individuales.
 
 {% endblock %}
 

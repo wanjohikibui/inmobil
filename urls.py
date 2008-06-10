@@ -18,8 +18,13 @@ urlpatterns = patterns('',
     #detalle consorcio
     (r'^consorcio/(?P<consorcio_id>\d+)/$', 'inmobil.balance.views.consorcio_detail'),
     
+
+    
+    #delete depto
+    (r'^consorcio/(?P<consorcio_id>\d+)/deptos/(?P<depto_id>\d+)/delete$', 'inmobil.views.depto_delete'),    
+  
     #agregar modificar departamentos de un consorcio
-       (r'^consorcio/(?P<consorcio_id>\d+)/deptos$', 'inmobil.views.consorcio_deptos'),    
+    (r'^consorcio/(?P<consorcio_id>\d+)/deptos$', 'inmobil.views.consorcio_deptos'),    
     
     
     #nuevo balance para el consorcio
@@ -61,6 +66,7 @@ urlpatterns = patterns('',
 
 
    #Alta/Modificacion de nuevos departamentos 
+  
   (r'^depto/create/$', create_update.create_object, depto),
   (r'^depto/(?P<consorcio_id>\d+)/(?P<piso_id>\d+)-(?P<ala_id>[A-Z]{1})/create/new', 'inmobil.balance.views.depto_new'),
   (r'^depto/edit/(?P<object_id>d+)/$', create_update.update_object, depto),
