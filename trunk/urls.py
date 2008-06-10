@@ -65,11 +65,10 @@ urlpatterns = patterns('',
  	(r'^media/(.*)$','django.views.static.serve',{'document_root': 'upload/', 'show_indexes': True}),
 
 
-   #Alta/Modificacion de nuevos departamentos 
+   #modificacion inlinde de deptos.
   
-  (r'^depto/create/$', create_update.create_object, depto),
-  (r'^depto/(?P<consorcio_id>\d+)/(?P<piso_id>\d+)-(?P<ala_id>[A-Z]{1})/create/new', 'inmobil.balance.views.depto_new'),
-  (r'^depto/edit/(?P<object_id>d+)/$', create_update.update_object, depto),
+    (r'^depto/ajax/(?P<campo>(coeficiente|consorcista|telefono|email))', 'inmobil.views.depto_modify_ajax'),
+  
 
 
 

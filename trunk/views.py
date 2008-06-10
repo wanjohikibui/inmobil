@@ -89,4 +89,23 @@ def depto_delete(request, consorcio_id, depto_id):
 		return HttpResponse('el depto no pertenece a este consorcio')
 			
 		
+def depto_modify_ajax(request, campo):
+    try:
+		value = request.POST['value']
+		depto1 = Depto.objects.get(id=int(request.POST[u'id']))
+    except KeyError:
+        return HttpResponse('no hay valor')                
+	
+	
+    if campo=='coeficiente':
+        depto1.coeficiente = float(value)
+    if campo=='consorcista':
+        depto1.nombre_consorcista = value
+    if campo=='telefono':
+        depto1.tel_consorcista = value
+	if campo=='email':
+		depto1.email_consorcista = value
+    depto1.save()
+    return HttpResponse(value)
+    
 
