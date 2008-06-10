@@ -43,8 +43,8 @@ class Depto(models.Model):
 	piso = models.PositiveIntegerField()
 	ala = models.CharField(max_length=2)
 	coeficiente = models.DecimalField(max_digits=6, decimal_places=4)
-	nombre_consorcista = models.CharField(max_length=200)
-	tel_consorcista = models.CharField(max_length=20)
+	nombre_consorcista = models.CharField(max_length=200, blank=True, null=True)
+	tel_consorcista = models.CharField(max_length=20, blank=True, null=True)
 	email_consorcista = models.EmailField(blank=True, null=True)
 	nombre_propietario = models.CharField(max_length=200, blank=True, null=True)
 	direccion_propietario = models.CharField(max_length=200, blank=True, null=True)
@@ -59,11 +59,13 @@ class Depto(models.Model):
 	
 class Balance(models.Model):
 	consorcio = models.ForeignKey(Consorcio)
-#	mes = models.IntegerField() Por las dudas las dejo comentadas
-#	ano = models.IntegerField() Por las dudas las dejo comentadas
 	fecha_creacion = models.DateField(auto_now=True)
 	fecha_vencimiento = models.DateField()
+	total = models.DecimalField(default=0, max_digits=8, decimal_places=2)
 	observacion = models.TextField(blank=True, null=True)
+	
+	#cuando el usuario lo dispone, se cierra y se generan las expensas a pagar en el modelo pago., 
+	balance_cerrado = models.BooleanField(default=False, editable=False) 
 	
 	def __unicode__(self):
 		return u'%s %s' % (self.consorcio, self.fecha_vencimiento)

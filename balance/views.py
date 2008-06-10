@@ -44,14 +44,17 @@ FormAddItem = forms.form_for_model(ItemBalance, fields=('concepto', 'categoria',
     
 def balance_detail(request, consorcio_id, year, month):
     """muestra el detalle de un balance, y la posibilidad de modificar o agregar items"""
-
-
     consorcio = Consorcio.objects.get(pk=consorcio_id)
-    balance = Balance.objects.filter(consorcio__exact=consorcio, fecha_vencimiento__year=year, fecha_vencimiento__month=int(month))[0] #(se """SUPONE""" que hay solo 1 para este año/mes
+   
+    #TODO se """SUPONE""" que hay solo 1 para este año/mes. Comprobarlo en la validacion del formulario de balances
+    balance = Balance.objects.filter(consorcio__exact=consorcio, fecha_vencimiento__year=year, fecha_vencimiento__month=int(month))[0] 
     items = ItemBalance.objects.filter(balance__exact=balance)
     total = 0
     for item in items:
         total = total + item.monto
+        
+        balance.total = total #guardo el total actual.
+        balance.save()
         
     alto = int(len(items) * 19) + 19
     form_add_item = FormAddItem(request.POST)
@@ -67,7 +70,29 @@ def balance_detail(request, consorcio_id, year, month):
             form_add_item = FormAddItem()
             
             
-    return render_to_response('balance/balance_detail.html',{"consorcio":consorcio, "balance":balance, 'items':items, 'total':total, 'form_add_item':form_add_item, 'alto':alto})
+    return render_to_response('balance/balance_detail.html',{"consorcio":consorcio, "balance":balance, 'items':items, 'form_add_item':form_add_item, 'alto':alto})
+
+
+def balance_cerrar(request, consorcio_id, year, month):
+    consorcio = Consorcio.objects.get(pk=consorcio_id)    
+    #TODO se """SUPONE""" que hay solo 1 para este año/mes. Comprobarlo en la validacion del formulario de balances
+    balance = Balance.objects.filter(consorcio__exact=consorcio, fecha_vencimiento__year=year, fecha_vencimiento__month=int(month))[0]
+    if not balance.balance_cerrado:
+        balance.balance_cerrado = True
+        
+        #se agregan expensas (pagos) para todos los deptos de consorcio
+        deptos = Depto.objects.filter(consorcio__exact=consorcio)
+        for depto in deptos:
+            nuevo_pago = Pago()
+            nuevo_pago.depto = depto
+            nuevo_pago.balance = balance
+            nuevo_pago.monto_a_pagar = balance.total * depto.coeficiente
+            nuevo_pago.save()
+        
+        return render_to_response('balance/balance_cerrado.html',{"consorcio":consorcio, "balance":balance})
+    else:
+        return HttpResponseRedirect('/consorcio/' +consorcio_id + '/' + str(year) + '-' + str(month) +  '/' )            
+
             
     
 def balance_detail_table_ajax(request, balance_id):

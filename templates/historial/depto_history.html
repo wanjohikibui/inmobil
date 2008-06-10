@@ -2,15 +2,19 @@
 
 {% block left %}
 
-<h2>Consorcio "{{ consorcio.nombre }}" </h2>
+<h2>"{{ consorcio.nombre }}" -{{ depto.piso }}º {{ depto.ala }} </h2>
 <p>{{ consorcio.direccion }}</p>
 
-<p>Balance de pagos del departamento {{ depto.piso }}º {{ depto.ala }} </p>
+<p>Historial de expensas  </p>
 
 <ul>
 {% for pago in pagos %}
- <li><a href="/consorcio/{{ consorcio_item.id }}"> Expensa {{ pago.balance.fecha_vencimiento|date:"F \de Y" }}</a> <br />
- {% if pago.fecha_pago %} Pagado el {{ pago.fecha_pago|date:"d-m-Y" }} {% else %} No pagado aun {% endif %} </li>
+ <li><a href="/consorcio/{{ consorcio.id }}/{{ pago.balance.fecha_vencimiento|date:"Y-m" }}"> Expensa {{ pago.balance.fecha_vencimiento|date:"F \de Y" }}</a> <br />
+Monto: $ {{ pago.monto_a_pagar }} <br>
+Fecha de vencimiento: {{ pago.balance.fecha_vencimiento|date:"d\/m\/Y" }} <br/>
+{% if pago.fecha_pago %} Pagado el {{ pago.fecha_pago|date:"d-m-Y" }} {% else %} No pagado aun {% endif %} </li>
+
+
 {% endfor %} 
 </ul>
  
@@ -18,13 +22,22 @@
 
 {% endblock left %}
 
-
+{% block nav %}	{% endblock nav %}	
 
 {% block box %}	
-		<h2 style="margin-top:17px">Ultimos balances</h2>
+		<h2 style="margin-top:17px">Información de contacto</h2>
 		<ul>
-        {% for balance in balances %}
-			<li><a href="./{{ balance.fecha_vencimiento }}/">Balance del {{ balance.fecha_vencimiento }}</a> </li>
-        {% endfor %}
-		</ul>
+        <li><strong>Consorcista:</strong>{{ depto.nombre_consorcista }}</li>
+        <li><strong>Teléfono:</strong>{{ depto.telefono_consorcista }}</li>
+        <li><strong>Email:</strong>{{ depto.email_consorcista }}</li>
+        </ul>
+        <hr style="border:1px solid #CCC"/>
+        <ul>
+        <li><strong>Propietario:</strong>{{ depto.nombre_propietario }}</li>
+        <li><strong>Teléfono:</strong>{{ depto.telefono_propietario }}</li>
+        <li><strong>Email:</strong>{{ depto.email_propietario }}</li>
+        </ul>        
+        
+        <a href="./detalles">Actualizar los datos de este departamento</a>      
+		
 {% endblock box %}	
