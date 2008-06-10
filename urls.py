@@ -10,31 +10,45 @@ from django.views.generic import create_update
 
 
 urlpatterns = patterns('',
-    
+    #pagina principal
     (r'index/$', 'inmobil.views.index'), 
     
+    
+    
+    #detalle consorcio
     (r'^consorcio/(?P<consorcio_id>\d+)/$', 'inmobil.balance.views.consorcio_detail'),
     
+    #agregar modificar departamentos de un consorcio
+       (r'^consorcio/(?P<consorcio_id>\d+)/deptos$', 'inmobil.views.consorcio_deptos'),    
+    
+    
+    #nuevo balance para el consorcio
     (r'^consorcio/(?P<consorcio_id>\d+)/balance/new', 'inmobil.balance.views.balance_new'),
+    
+    #cerrar balance 
     (r'^consorcio/(?P<consorcio_id>\d+)/(?P<year>\d{4})-(?P<month>\d{2})/cerrar$', 'inmobil.balance.views.balance_cerrar'),    
+    
+    #detalle de balance
     (r'^consorcio/(?P<consorcio_id>\d+)/(?P<year>\d{4})-(?P<month>\d{2})/$', 'inmobil.balance.views.balance_detail'),    
-    #(r'^consorcio/(?P<consorcio_id>\d+)/balance/(?P<balance_id>\d+)', 'inmobil.balance.views.balance_add_modify'),
     
-    
+    #historial de expensas para depto
     (r'^consorcio/(?P<consorcio_id>\d+)/depto(?P<piso>\d+)-(?P<ala>[A-Z]{1})/', 'inmobil.historial.views.depto_balance_detail'),
     
-    
-
+    #tabla de detalle del balance. usada por el grid
     (r'^balance/detalle-(?P<balance_id>\d+)', 'inmobil.balance.views.balance_detail_table_ajax'),
     
-    #esta url es para la modificacion inline de items.
+    #modificacion inline de items.
     (r'^balance/item/(?P<campo>(concepto|categoria|monto))', 'inmobil.balance.views.balance_item_modify_ajax'),
 
-    #(r'^consorcios/$', 'inmobil.views.listarConsorcios'),     
+    #agregar nuevo consorcio y sus deptos asociados
+    (r'^consorcios/new',  'inmobil.views.consorcio_new'),
+            
+    #listar consorcios generic view. ver http://djangobook.com/en/1.0/chapter09/
+    (r'^consorcios/',   list_detail.object_list, consorcio_info), 
     
-
-
-    (r'^consorcios/',   list_detail.object_list, consorcio_info), #generic view. ver http://djangobook.com/en/1.0/chapter09/
+    
+    
+    
     (r'^administradoras/',   list_detail.object_list, administradora_info),
     
     

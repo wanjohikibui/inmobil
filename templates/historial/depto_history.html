@@ -22,7 +22,12 @@ Fecha de vencimiento: {{ pago.balance.fecha_vencimiento|date:"d\/m\/Y" }} <br/>
 
 {% endblock left %}
 
-{% block nav %}	{% endblock nav %}	
+{% block nav %}	
+<ul id="nav">
+<li><a href="/consorcio/{{ consorcio.id }}">Ver detalle del consorcio</a></li>
+<li><a href="./detalles">Actualizar los datos de este departamento</a> </li>
+</ul>
+{% endblock nav %}	
 
 {% block box %}	
 		<h2 style="margin-top:17px">Información de contacto</h2>
@@ -37,7 +42,5 @@ Fecha de vencimiento: {{ pago.balance.fecha_vencimiento|date:"d\/m\/Y" }} <br/>
         <li><strong>Teléfono:</strong>{{ depto.telefono_propietario }}</li>
         <li><strong>Email:</strong>{{ depto.email_propietario }}</li>
         </ul>        
-        
-        <a href="./detalles">Actualizar los datos de este departamento</a>      
 		
 {% endblock box %}	

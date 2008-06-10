@@ -28,6 +28,8 @@ class Consorcio(models.Model):
 	administradora = models.ForeignKey(Administradora)
 	nombre= models.CharField(max_length=200)
 	direccion = models.CharField(max_length=250)
+	pisos = models.SmallIntegerField(help_text="la planta baja cuenta como un piso")
+	alas = models.SmallIntegerField(help_text="Indique la cantidad de alas. Si existe 'A' 'B' y 'C' serían 3 alas")
 	observacion = models.TextField(blank=True, null=True)
 	
 	def __unicode__(self):

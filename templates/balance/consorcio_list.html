@@ -4,10 +4,23 @@
 
 <h2>Consorcios administrados</h2>
 
+{% if not consorcio_list %}
+Aun no hay consorcios administrados. <a href="./new">Cree uno!</a>
+{% else %}
+
 <ul>
+
+
 {% for consorcio_item in consorcio_list %}
  <li><a href="/consorcio/{{ consorcio_item.id }}"> {{ consorcio_item.nombre }}</a></li>
 {% endfor %} 
 </ul>
+
+{% endif %}
 {% endblock left %}
 
+{% block nav %}
+<ul id="nav">
+<li><a href="/consorcios/new">Crear nuevo consorcio</a></li>
+</ul>
+{% endblock nav %}
