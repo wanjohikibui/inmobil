@@ -69,6 +69,15 @@ $(document).ready(
 </table>
 
 
+<h2>Agregar Depto</h2>
+<form action="./deptos" method="POST">
+{{ form_nuevo_depto.as_p }}
+<input type="submit" value="agregar al balance" />
+</form>
+
+
+
+
 {% endblock %}
 
 {% block nav %}
