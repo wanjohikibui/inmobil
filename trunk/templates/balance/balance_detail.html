@@ -65,12 +65,12 @@ $(document).ready(
 
 <table id="balance">
 <thead>
-<tr><th>#</th><th>Concepto</th><th>Categoría</th><th>Monto</th></tr>
+<tr><th>X</th><th>Concepto</th><th>Categoría</th><th>Monto</th></tr>
 </thead>
 <tbody>
 {% for item in items %}
                          <tr>
-                         <td>{{ item.id }}</td>
+                         <td><a href="/balance/{{ balance.id }}/item/{{ item.id }}">X</a></td>
                          <td><div class="edit-concepto" id="{{ item.id }}">{{ item.concepto }}</div></td>
                          <td><div class="edit-categoria" id="{{ item.id }}">{{ item.categoria }}</td>
                          <td style="text-align:right">$ <span class="edit-monto" id="{{ item.id }}">{{ item.monto }}</span></td>                  
