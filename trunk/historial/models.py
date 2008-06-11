@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #coding=utf-8
 from django.db import models
-from balance.models import Depto, Balance, Consorcio
+from inmobil.balance.models import Depto, Balance, Consorcio
 
 
 class Pago(models.Model):
