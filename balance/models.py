@@ -7,6 +7,7 @@ class Administradora(models.Model):
 	"""El administrador del sistema"""
 	nombre= models.CharField(max_length=200)
 	direccion = models.CharField(max_length=250)
+	interes_diario = models.DecimalField(max_digits=6, decimal_places=2, default=0.01, help_text="porcentaje de interes desde la fecha de vencimiento a la fecha de pago")
 	observacion = models.TextField(blank=True, null=True)
 	imagen = models.ImageField(upload_to=PATH_ARCHIVOS, height_field=100,width_field=100, null=True, blank=True)
 	telefono = models.CharField(max_length=10)
@@ -30,6 +31,7 @@ class Consorcio(models.Model):
 	direccion = models.CharField(max_length=250)
 	pisos = models.SmallIntegerField(help_text="la planta baja cuenta como un piso")
 	alas = models.SmallIntegerField(help_text="Indique la cantidad de alas. Si existe 'A' 'B' y 'C' serían 3 alas")
+	#reserva_actual = models.DecimalField(max_digits=6, decimal_places=2,help_text="dinero en reserva del consorcio", default=0)
 	observacion = models.TextField(blank=True, null=True)
 	
 	def __unicode__(self):
