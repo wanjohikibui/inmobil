@@ -160,7 +160,7 @@ def pago_detail(request, consorcio_id, piso, ala, expensa):
         if pago.punitorios:
             punitorios = pago.punitorios
         else:
-            punitorios = consorcio.administradora.interes_diario * dif.days * pago.monto_a_pagar
+            punitorios = consorcio.administradora.interes_diario * float(dif.days) * pago.monto_a_pagar
     else:
         punitorios = 0
     total = pago.monto_a_pagar + punitorios
