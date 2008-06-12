@@ -64,7 +64,8 @@ class Depto(models.Model):
 class Balance(models.Model):
 	consorcio = models.ForeignKey(Consorcio)
 	fecha_creacion = models.DateField(auto_now=True)
-	fecha_vencimiento = models.DateField()
+	fecha_vencimiento = models.DateField(help_text="Formato AAAA-MM-DD.La fecha de vencimiento debe ser del mes posterior al del balance") 
+	fecha_balance = models.DateField()
 	total = models.DecimalField(default=0, max_digits=8, decimal_places=2)
 	observacion = models.TextField(blank=True, null=True)
 	

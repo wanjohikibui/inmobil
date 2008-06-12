@@ -31,6 +31,7 @@ def balance_new(request, consorcio_id):
             #TODO verificar que no exista un balance para el mismo mes/año
             instance = form_nuevo_balance.save(commit=False) #hago un save falso para guardar los demas datos
             instance.consorcio = consorcio
+            instance.fecha_balance = instance.fecha_vencimiento - datetime.timedelta(30)
             instance.save()
             print request.POST
             
@@ -183,7 +184,17 @@ def pago_detail_cerrar(request, consorcio_id, piso, ala, expensa):
     return HttpResponseRedirect('/consorcio/' +consorcio_id + '/depto' + str(depto.piso) + '-' + str(depto.ala) + '/exp' + str(pago.id))
 
 
-
+def pago_informe(request, consorcio_id, piso, ala, expensa):
+    consorcio = Consorcio.objects.get(id=consorcio_id)
+    depto = Depto.objects.filter(consorcio__exact=consorcio_id, piso__exact=piso, ala__exact=ala)[0]
+    pago = Pago.objects.get(id=expensa)    
+    balance = pago.balance
+    items = ItemBalance.objects.filter(balance__exact=balance)
+    total = 0
+    for item in items:
+        total = total + item.monto
+            
+    return render_to_response('balance/informe.html',{"consorcio":consorcio, "balance":balance, 'items':items, 'pago':pago, 'depto':depto, 'total':total})
 
 
 FormAddDepto = forms.form_for_model(Depto, fields=('consorcio_id', 'piso_id','ala_id'))

@@ -6,7 +6,7 @@
 
 
 
-<a href="/consorcio/{{ consorcio.id }}/{{ pago.balance.fecha_vencimiento|date:"Y-m" }}"> Expensa {{ pago.balance.fecha_vencimiento|date:"F \de Y" }}</a> 
+<a href="/consorcio/{{ consorcio.id }}/{{ pago.balance.fecha_vencimiento|date:"Y-m" }}"> Expensa {{ pago.balance.fecha_balance|date:"F \de Y" }}</a> <br/>
 
 
 
@@ -20,7 +20,7 @@ Punitorios: $ {{ punitorios }}<br/>
 
 
 <form action="./exp{{ pago.id }}/cerrar" method="POST">
-<input type="submit" value="PAGAR!" onclick="alert('Cancelar este saldo?')" />
+<input type="submit" value="PAGAR!" onclick="confirm('Cancelar este saldo?')" />
 </form>
 
 {% else %}
@@ -37,6 +37,7 @@ Fecha de pago: {{ pago.fecha_pago|date:"d\/m\/Y" }} <br/>
 
 {% block nav %}	
 <ul id="nav">
+<li><a href="./exp{{ pago.id }}/informe">Imprimir informe</a></a></li>
 <li><a href="./">Volver al historial de pagos</a></li>
 <li><a href="/consorcio/{{ consorcio.id }}/{{ pago.balance.fecha_vencimiento|date:"Y-m" }}"> ver el balance de este mes</a></li>
 </ul>
