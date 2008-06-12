@@ -1,0 +1,32 @@
+{% extends "base_general.html" %}
+
+{% block title %}{{ consorcio.nombre }} - Listado de departamentos {% endblock title %}
+
+{% block extrahead %}
+{% endblock %}
+
+
+{% block jquery %}
+{% endblock jquery%}
+
+
+{% block left %}
+<h2>{{ consorcio.nombre }} - Modificar depto {{ depto }}</h2>
+
+<form action="./detalles" method="POST">
+{{ form_edit_depto.as_p }}
+<input type="submit" value="modificar" />
+</form>
+
+
+
+
+{% endblock %}
+
+{% block nav %}
+<ul id="nav">
+<li><a href="/consorcio/{{ consorcio.id }}">Ir al consorcio</a></li>
+</ul>
+{% endblock %}
+
+{% block box %}{% endblock %}

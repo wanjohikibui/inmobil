@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 2.4  (Linux)">
+	<META NAME="AUTHOR" CONTENT="tin">
+	<META NAME="CREATED" CONTENT="20080612;4385900">
+	<META NAME="CHANGEDBY" CONTENT="tin">
+	<META NAME="CHANGED" CONTENT="20080612;5251300">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { size: 21cm 29.7cm; margin-left: 1cm; margin-right: 1cm }
+		P { margin-bottom: 0.21cm }
+		TD P { margin-bottom: 0cm }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="es-AR" DIR="LTR">
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Verdana, sans-serif"><FONT SIZE=4><FONT SIZE=6 STYLE="font-size: 22pt">{{ administradora }}  </FONT><FONT SIZE=3> {{ administradora.direccion }} – Tel: {{ administradora.telefono }} </FONT></FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm"> 
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Verdana, sans-serif"><FONT SIZE=4> {{ consorcio }} - Depto {{ depto }}</FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Verdana, sans-serif"><FONT SIZE=2>Consorcista:
+ {{ depto.nombre_consorcista }}  - Coeficiente: {{ depto.coeficiente }}</FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<TABLE WIDTH=100% BORDER=3 BORDERCOLOR="#000000" CELLPADDING=4 CELLSPACING=0>
+	<COL WIDTH=128*>
+	<COL WIDTH=128*>
+	<TR VALIGN=TOP>
+		<TD WIDTH=50%>
+			<P><FONT FACE="Verdana, sans-serif"><FONT SIZE=4>Expensas de {{ pago.balance.fecha_balance|date:"F \de Y" }}</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=50%>
+			<P ALIGN=RIGHT><FONT FACE="Verdana, sans-serif"><FONT SIZE=4>$ {{ pago.monto_a_pagar }} </FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P><FONT FACE="Verdana, sans-serif"><FONT SIZE=4>Fecha de
+vencimiento: {{ pago.balance.fecha_vencimiento|date:"d\/m\/Y" }}</FONT></FONT></P>
+{% if impagas %}
+<P><FONT FACE="Verdana, sans-serif"><FONT SIZE=2><B>Atención: </B>Se
+registran deudas impagas. </FONT></FONT>
+</P>
+{% endif %}
+<P STYLE="margin-bottom: 0cm; border-top: none; border-bottom: 1px solid #000000; border-left: none; border-right: none; padding-top: 0cm; padding-bottom: 0.07cm; padding-left: 0cm; padding-right: 0cm">
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm; font-weight: medium"><FONT FACE="Verdana, sans-serif"><FONT SIZE=4>Balance
+{{ balance.fecha_balance|date:"F \de Y" }}</FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<TABLE WIDTH=100% BORDER=1 BORDERCOLOR="#000000" CELLPADDING=4 CELLSPACING=0>
+	<COL WIDTH=168*>
+	<COL WIDTH=51*>
+	<COL WIDTH=37*>
+	<TR VALIGN=TOP>
+		<TD WIDTH=66%>
+			<P ALIGN=CENTER><FONT FACE="Verdana, sans-serif"><FONT SIZE=2>CONCEPTO</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=20%>
+			<P ALIGN=CENTER><FONT FACE="Verdana, sans-serif"><FONT SIZE=2>CATEGORIA</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=14%>
+			<P ALIGN=CENTER><FONT FACE="Verdana, sans-serif"><FONT SIZE=2>MONTO</FONT></FONT></P>
+		</TD>
+	</TR>
+	{% for item in items %}
+	<TR VALIGN=TOP>
+		<TD WIDTH=66%>
+			<P><FONT FACE="Verdana, sans-serif"><FONT SIZE=2>{{ item.concepto }}</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=20%>
+			<P><FONT FACE="Verdana, sans-serif"><FONT SIZE=2>{{ item.categoria }}</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=14%>
+			<P ALIGN=RIGHT><FONT FACE="Verdana, sans-serif"><FONT SIZE=2>$ {{ item.monto }}</FONT></FONT></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD COLSPAN=2 WIDTH=86%>
+			<P ALIGN=RIGHT><FONT FACE="Verdana, sans-serif"><FONT SIZE=3 STYLE="font-size: 13pt">Total
+			Gastos del mes</FONT></FONT></P>
+		</TD>
+		<TD WIDTH=14%>
+			<P ALIGN=RIGHT><FONT FACE="Verdana, sans-serif"><FONT SIZE=3 STYLE="font-size: 13pt">$
+			{{ total }}</FONT></FONT></P>
+		</TD>
+	</TR>
+</TABLE>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+{% if balance.observaciones %}
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Verdana, sans-serif"><FONT SIZE=4><B>Observaciones</B>:
+{{ balance.observaciones }} </FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm; border-top: none; border-bottom: 1px solid #000000; border-left: none; border-right: none; padding-top: 0cm; padding-bottom: 0.07cm; padding-left: 0cm; padding-right: 0cm">
+</P>
+</BODY>
+</HTML>
