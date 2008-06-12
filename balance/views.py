@@ -190,9 +190,9 @@ def pago_informe(request, consorcio_id, piso, ala, expensa):
     pago = Pago.objects.get(id=expensa)    
     balance = pago.balance
     items = ItemBalance.objects.filter(balance__exact=balance)
-    total = 0
+    total = 0.0
     for item in items:
-        total = total + item.monto
+        total = float(total) + float(item.monto)
             
     return render_to_response('balance/informe.html',{"consorcio":consorcio, "balance":balance, 'items':items, 'pago':pago, 'depto':depto, 'total':total})
 
