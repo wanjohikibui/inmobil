@@ -9,7 +9,7 @@
 
 <ul>
 {% for pago in pagos %}
- <li><a href="/consorcio/{{ consorcio.id }}/{{ pago.balance.fecha_vencimiento|date:"Y-m" }}"> Expensa {{ pago.balance.fecha_vencimiento|date:"F \de Y" }}</a> <br />
+ <li><a href="./exp{{ pago.id }}" title="Ver comprobante de pago o deuda"> Expensa {{ pago.balance.fecha_vencimiento|date:"F \de Y" }}</a> (<a href="/consorcio/{{ consorcio.id }}/{{ pago.balance.fecha_vencimiento|date:"Y-m" }}">ver balance</a>) <br />
 Monto: $ {{ pago.monto_a_pagar }} <br>
 Fecha de vencimiento: {{ pago.balance.fecha_vencimiento|date:"d\/m\/Y" }} <br/>
 {% if pago.fecha_pago %} Pagado el {{ pago.fecha_pago|date:"d-m-Y" }} {% else %} No pagado aun {% endif %} </li>

@@ -2,35 +2,45 @@
 
 {% block left %}
 
-<h2>Consorcio "{{ consorcio.nombre }}" </h2>
-<p>{{ consorcio.direccion }}</p>
+<h2>Consorcio "{{ consorcio.nombre }}" - {{ depto }}</h2>
 
-<p>El balance de pagos de los {{ deptos|length }} departamentos </p>
- 
-<ul>
 
-{% for monto in monto %}
 
-<li>El departamento {{monto.depto}} pago {{monto.monto_a_pagar}} el día {{monto.fecha_pago}}</li>
+<a href="/consorcio/{{ consorcio.id }}/{{ pago.balance.fecha_vencimiento|date:"Y-m" }}"> Expensa {{ pago.balance.fecha_vencimiento|date:"F \de Y" }}</a> 
 
-{% endfor %}
-</ul>
 
-{% for fecha in fecha %}
 
-La fecha de vencimiento es: {{fecha.fecha_vencimiento}}
+Fecha de vencimiento: {{ pago.balance.fecha_vencimiento|date:"d\/m\/Y" }} <br/>
+Monto: $ {{ pago.monto_a_pagar }}<br/>
+Punitorios: $ {{ punitorios }}<br/>
 
-{% endfor %}
+<strong>TOTAL:</strong> ${{ total }}<br>
+
+{% if not pago.fecha_pago %}
+
+
+<form action="./exp{{ pago.id }}/cerrar" method="POST">
+<input type="submit" value="PAGAR!" onclick="alert('Cancelar este saldo?')" />
+</form>
+
+{% else %}
+Fecha de pago: {{ pago.fecha_pago|date:"d\/m\/Y" }} <br/>
+
+{% endif %}
+
+
+
+
 
 {% endblock left %}
 
 
+{% block nav %}	
+<ul id="nav">
+<li><a href="./">Volver al historial de pagos</a></li>
+<li><a href="/consorcio/{{ consorcio.id }}/{{ pago.balance.fecha_vencimiento|date:"Y-m" }}"> ver el balance de este mes</a></li>
+</ul>
+{% endblock %}	
 
 {% block box %}	
-		<h2 style="margin-top:17px">Ultimos balances</h2>
-		<ul>
-        {% for balance in balances %}
-			<li><a href="./{{ balance.fecha_vencimiento }}/">Balance del {{ balance.fecha_vencimiento }}</a> </li>
-        {% endfor %}
-		</ul>
 {% endblock box %}	

@@ -8,6 +8,8 @@ from django.shortcuts import render_to_response
 from django import newforms as forms
 from inmobil.historial.models import Pago
 from django.db.models import Q
+import datetime
+
 
 def consorcio_detail(request, consorcio_id):
     """muestra el detalle del consorcio y sus balances"""
@@ -59,6 +61,7 @@ def balance_detail(request, consorcio_id, year, month):
     alto = int(len(items) * 19) + 19
     form_add_item = FormAddItem(request.POST)
     
+    
     if request.method == 'POST':
         #procesado de Formularios.             
         if  form_add_item.is_valid():
@@ -74,6 +77,9 @@ def balance_detail(request, consorcio_id, year, month):
 
 
 def balance_cerrar(request, consorcio_id, year, month):
+    """ vista que confirma el cierre de un balance. Se genera una nueva expensa 
+    para cada depto"""
+    
     consorcio = Consorcio.objects.get(pk=consorcio_id)    
     #TODO se """SUPONE""" que hay solo 1 para este año/mes. Comprobarlo en la validacion del formulario de balances
     balance = Balance.objects.filter(consorcio__exact=consorcio, fecha_vencimiento__year=year, fecha_vencimiento__month=int(month))[0]
@@ -135,18 +141,46 @@ def balance_item_modify_ajax(request, campo):
     
     
     
-def pago_detail(request, pago_id):
-    """Detalle de expensas para un departamento""" 
+def pago_detail(request, consorcio_id, piso, ala, expensa):
+    """Pago para un depto""" 
     #TODO Estudiar conceptualmente
     
-    #Esto antes era balance_detail. Lo cual está MAL. Balance_detail es el detalle 
-    #del gasto de todo el edificio, y pago_detail tiene que estar asociado a un depto en particular
-    
+   
     consorcio = Consorcio.objects.get(id=consorcio_id)
-    deptos = Depto.objects.filter(consorcio=consorcio_id)
-    monto = Pago.objects.filter(balance=consorcio_id)
-    fecha = Balance.objects.filter(consorcio=consorcio_id)
-    return render_to_response('balance/default_template.html', {'consorcio': consorcio, 'deptos':deptos, 'monto':monto, 'fecha': fecha})
+    depto = Depto.objects.filter(consorcio__exact=consorcio_id, piso__exact=piso, ala__exact=ala)[0]
+    pago = Pago.objects.get(id=expensa)
+    if not pago.depto==depto:
+        return HttpResponse('esta expensa no corresponde a este depto')
+    
+    
+    
+    dif = datetime.date.today() - pago.balance.fecha_vencimiento
+    if dif.days > 0:
+        if pago.punitorios:
+            punitorios = pago.punitorios
+        else:
+            punitorios = consorcio.administradora.interes_diario * dif.days * pago.monto_a_pagar
+    else:
+        punitorios = 0
+    total = pago.monto_a_pagar + punitorios
+    return render_to_response('balance/pago_detail.html', {'consorcio': consorcio, 'depto':depto, 'pago':pago, 'punitorios':punitorios, 'total':total})
+
+def pago_detail_cerrar(request, consorcio_id, piso, ala, expensa):
+    consorcio = Consorcio.objects.get(id=consorcio_id)
+    depto = Depto.objects.filter(consorcio__exact=consorcio_id, piso__exact=piso, ala__exact=ala)[0]
+    pago = Pago.objects.get(id=expensa)
+
+    if not pago.depto==depto:
+        return HttpResponse('esta expensa no corresponde a este depto')    
+    
+    pago.fecha_pago = datetime.date.today   ()
+    dif = pago.fecha_pago - pago.balance.fecha_vencimiento
+    if dif.days > 0:
+        pago.punitorios = consorcio.administradora.interes_diario * dif.days * pago.monto_a_pagar
+    else:
+        pago.punitorios = 0
+    pago.save()
+    return HttpResponseRedirect('/consorcio/' +consorcio_id + '/depto' + str(depto.piso) + '-' + str(depto.ala) + '/exp' + str(pago.id))
 
 
 
