@@ -92,7 +92,7 @@ class ItemBalance(models.Model):
 	balance = models.ForeignKey(Balance)
 	concepto = models.CharField(max_length=300)
 	categoria = models.ForeignKey(CategoriaItem)
-	monto = models.DecimalField(max_digits=8, decimal_places=2)
+	monto = models.DecimalField(max_digits=8, decimal_places=3)
 	
 	def __unicode__(self):
 		return self.concepto
