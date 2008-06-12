@@ -53,12 +53,12 @@ $(document).ready(
 
 <table id="deptos">
 <thead>
-<tr><th>X</th><th>Piso</th><th>Ala</th><th>Coeficiente</th><th>Consorcista</th></tr>
+<tr><th></th><th>Piso</th><th>Ala</th><th>Coeficiente</th><th>Consorcista</th></tr>
 </thead>
 <tbody>
 {% for depto in deptos %}
                          <tr>
-                        <td><a href="./deptos/{{ depto.id }}/delete">X</a></td>
+                        <td><a href="./deptos/{{ depto.id }}/delete" title="eliminar el depto {{ depto }}">X</a> <a href="./depto{{ depto.piso }}-{{ depto.ala }}/detalles">E</a></td>
                          <td style="text-align:right">{% ifequal depto.piso 0 %}PB {% else %}{{ depto.piso }}{% endifequal %}</td>
                          <td style="text-align:right">{{ depto.ala }}</td>
                          <td style="text-align:right"><div class="edit-coeficiente" id="{{ depto.id }}">{{ depto.coeficiente }}</td>
@@ -72,7 +72,7 @@ $(document).ready(
 <h2>Agregar Depto</h2>
 <form action="./deptos" method="POST">
 {{ form_nuevo_depto.as_p }}
-<input type="submit" value="agregar al balance" />
+<input type="submit" value="agregar al consorcio" />
 </form>
 
 

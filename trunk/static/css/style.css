@@ -10,7 +10,7 @@ body {
 	background: url(../img/top_bg.gif);
 	background-repeat: repeat-x;
 	font-family: Verdana, Arial, sans-serif;
-        font-size: .6em;
+	font-size: 1em;
 }
 
 p {
@@ -27,7 +27,6 @@ h2 {
 }
 
 ul {
-	font-size: 10px;
 	margin:0;
 	padding:0;
 	list-style-image: url(../img/bullet.gif);
@@ -72,7 +71,7 @@ blockquote{
 #top h2 {
 	color: White;
 	letter-spacing: 3px;
-	font-size: 2.4em;
+	font-size: 1.7em;
 	font-weight: normal;
 	position: relative;
 	margin: 0px;
@@ -99,6 +98,7 @@ blockquote{
 #menu {
 	display: block;
 	float:right;
+	font-size: 0.6em;
 }
 
 #menu ul {
@@ -175,7 +175,7 @@ blockquote{
 	width: 700px;
 	float:left;
 	display: block;
-       margin-left: 20px;
+	margin-left: 20px;
 	display: inline;
 }
 
@@ -187,10 +187,11 @@ blockquote{
 	float: right;
 	display:block;
 	margin-top: 10px;
+	font-size: 0.7em;
 }
 
 #right .box {
-	width: 24em;/*280px*/
+	width: 280px
 	background: #F6F9FB;
 	border: 1px solid #E1E1E1;
 	padding:10px 10px 15px 10px;
@@ -223,7 +224,7 @@ blockquote{
 	margin-top:5px;
 }
 
-#nav{ list-style: none; margin: 2.0em 0; width: 25em; float: right;}
+#nav{ list-style: none; margin: 2.0em 0; float: right;}
 #nav li{ padding: 0; margin: 0; }
 #nav a{
 	display: block;
@@ -265,6 +266,7 @@ blockquote{
 	border-top: dotted 1px gray;
 	padding: 20px 0 20px 0;
 	width: 70%;
+	font-size: .6em
 }
 
 #footer p {
