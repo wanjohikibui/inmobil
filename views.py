@@ -47,7 +47,7 @@ def consorcio_new(request):
 			consorcio = form_nuevo_consorcio.save()
 			cantidad = consorcio.pisos * consorcio.alas
 			for piso in range(consorcio.pisos):
-				for ala in map(chr, range(65, 65+consorcio.pisos)):
+				for ala in map(chr, range(65, 65+consorcio.alas)):
 					new_depto = Depto()
 					new_depto.consorcio = consorcio
 					new_depto.piso = piso

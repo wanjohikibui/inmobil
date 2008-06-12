@@ -7,6 +7,8 @@ from inmobil.balance.models import *
 from inmobil.historial.models import Pago
 from django.shortcuts import render_to_response
 
+
+
 def pago_detail(request, year, day, month, consorcio_id):
     """muestra el detalle del pago por departamento"""
     consorcio = Consorcio.objects.get(id=consorcio_id)
