@@ -25,7 +25,7 @@
  
 <ul>
 {% for depto in deptos %}
- <li><a href="./depto{{ depto.piso }}-{{ depto.ala }}"> {{ depto.piso }}º {{ depto.ala }}</a>  (Coeficiente: {{ depto.coeficiente }})</li>
+ <li><a href="./depto{{ depto.piso }}-{{ depto.ala }}"> {% ifequal depto.piso 0 %}PB {% else %}{{ depto.piso }}º{% endifequal %} {{ depto.ala }}</a>  (Coeficiente: {{ depto.coeficiente }})</li>
 {% endfor %} 
 </ul>
 
