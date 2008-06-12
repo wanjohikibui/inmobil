@@ -36,6 +36,9 @@ urlpatterns = patterns('',
     #detalle de balance
     (r'^consorcio/(?P<consorcio_id>\d+)/(?P<year>\d{4})-(?P<month>\d{2})/$', 'inmobil.balance.views.balance_detail'),    
     
+    #detalle de depto
+    (r'^consorcio/(?P<consorcio_id>\d+)/depto(?P<piso>\d+)-(?P<ala>[A-Z]{1})/detalles', 'inmobil.views.depto_update'),
+    
     #historial de expensas para depto
     (r'^consorcio/(?P<consorcio_id>\d+)/depto(?P<piso>\d+)-(?P<ala>[A-Z]{1})/', 'inmobil.historial.views.depto_balance_detail'),
     
@@ -66,12 +69,9 @@ urlpatterns = patterns('',
 
 
    #modificacion inlinde de deptos.
-  
     (r'^depto/ajax/(?P<campo>(coeficiente|consorcista|telefono|email))', 'inmobil.views.depto_modify_ajax'),
   
 
-
-
-    # Uncomment this for admin:
+    #admin
     (r'^admin/', include('django.contrib.admin.urls')),
 )

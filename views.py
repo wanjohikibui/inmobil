@@ -129,3 +129,23 @@ def depto_modify_ajax(request, campo):
     return HttpResponse(value)
     
 
+##FormBalanceNew = forms.form_for_model(Balance, fields=('fecha_vencimiento', 'observacion'))
+
+def depto_update(request, consorcio_id, piso, ala):
+	depto = Depto.objects.filter(consorcio__exact=consorcio_id, piso__exact=piso, ala__exact=ala)[0]
+	consorcio = Consorcio.objects.get(id=consorcio_id)
+	
+	EditDeptoForm = forms.form_for_instance(depto, fields=('piso', 'ala', 'coeficiente','nombre_consorcista', 
+					'tel_consorcista', 'email_consorcista', 'nombre_propietario', 'direccion_propietario'
+					'tel_propietario','email_propietario'))
+	
+	if request.method == 'POST':
+		form_edit_depto = EditDeptoForm(request.POST)
+		#procesado de Formularios.             
+		if  form_edit_depto.is_valid():
+			form_edit_depto.save()
+			return HttpResponseRedirect('/consorcio/' + str(consorcio.id) + '/deptos')
+	else:
+		form_edit_depto = EditDeptoForm()		
+	return render_to_response('depto_update.html', {'consorcio':consorcio, 'depto':depto, 'form_edit_depto' :form_edit_depto})
+    
