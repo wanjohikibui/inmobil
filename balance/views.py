@@ -93,7 +93,7 @@ def balance_cerrar(request, consorcio_id, year, month):
             nuevo_pago = Pago()
             nuevo_pago.depto = depto
             nuevo_pago.balance = balance
-            nuevo_pago.monto_a_pagar = balance.total * depto.coeficiente
+            nuevo_pago.monto_a_pagar = float(balance.total) * float(depto.coeficiente)
             nuevo_pago.save()
         
         return render_to_response('balance/balance_cerrado.html',{"consorcio":consorcio, "balance":balance})
