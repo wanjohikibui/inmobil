@@ -58,7 +58,7 @@ $(document).ready(
 <tbody>
 {% for depto in deptos %}
                          <tr>
-                        <td><a href="./deptos/{{ depto.id }}/delete" title="eliminar el depto {{ depto }}">X</a> <a href="./depto{{ depto.piso }}-{{ depto.ala }}/detalles">E</a></td>
+                        <td style="font-size:0.6em"><a href="./depto{{ depto.piso }}-{{ depto.ala }}/" title="ver historial del depto">V</a> <a href="./deptos/{{ depto.id }}/delete" title="eliminar el depto {{ depto }}">X</a> <a href="./depto{{ depto.piso }}-{{ depto.ala }}/detalles" title="editar el depto {{ depto }}">M</a></td>
                          <td style="text-align:right">{% ifequal depto.piso 0 %}PB {% else %}{{ depto.piso }}{% endifequal %}</td>
                          <td style="text-align:right">{{ depto.ala }}</td>
                          <td style="text-align:right"><div class="edit-coeficiente" id="{{ depto.id }}">{{ depto.coeficiente }}</td>
