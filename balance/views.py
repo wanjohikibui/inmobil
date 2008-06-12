@@ -52,9 +52,9 @@ def balance_detail(request, consorcio_id, year, month):
     #TODO se """SUPONE""" que hay solo 1 para este año/mes. Comprobarlo en la validacion del formulario de balances
     balance = Balance.objects.filter(consorcio__exact=consorcio, fecha_vencimiento__year=year, fecha_vencimiento__month=int(month))[0] 
     items = ItemBalance.objects.filter(balance__exact=balance)
-    total = 0
+    total = 0.0
     for item in items:
-        total = total + item.monto
+        total = total + float(item.monto)
         
         balance.total = total #guardo el total actual.
         balance.save()
