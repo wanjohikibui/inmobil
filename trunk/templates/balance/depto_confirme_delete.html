@@ -1,0 +1,26 @@
+{% extends "base_general.html" %}
+
+{% block extrahead %}
+{% endblock %}
+
+
+{% block jquery %}
+{% endblock jquery%}
+
+
+{% block left %}
+
+<h2>Crear nuevo consorcio</h2>
+
+
+<form action="./new" method="POST">
+{{ form_consorcio.as_p }}
+<input type="submit" value="Crear" />
+</form>
+
+{% endblock left %}
+
+
+
+{% block box %}	
+{% endblock box %}	
