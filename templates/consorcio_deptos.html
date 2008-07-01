@@ -22,7 +22,7 @@ $(document).ready(
 			//url: '/balance/detalle-{{ balance.id }}',
 			//initialLoad: false,			
 			height: {{ alto }},
-			colWidths: [30,35,35,50,150],		// width of each column
+			colWidths: [30,35,35,100,150],		// width of each column
 			rowClasses: ['grid-row-style1','grid-row-style2'],
 			resizableCols: false,
 			paging: false,
@@ -34,6 +34,10 @@ $(document).ready(
 		$(".edit-coeficiente").editable("/depto/ajax/coeficiente", {
 						event     : "dblclick"
 		});						
+        
+        $(".edit-gasto_fijo").editable("/depto/ajax/gasto_fijo", {
+        						event     : "dblclick"
+        		});	        
         
         $(".edit-consorcista").editable("/depto/ajax/consorcista", {
         						event     : "dblclick"
@@ -53,7 +57,16 @@ $(document).ready(
 
 <table id="deptos">
 <thead>
-<tr><th></th><th>Piso</th><th>Ala</th><th>Coeficiente</th><th>Consorcista</th></tr>
+<tr><th></th><th>Piso</th><th>Ala</th>
+
+{% ifequal consorcio.tipo_expensa 2 %}
+{#expensa variable #}
+<th>Coeficiente</th>
+{% else %}
+<th>Expensa mensual</th>
+{% endifequal %}
+
+<th>Consorcista</th></tr>
 </thead>
 <tbody>
 {% for depto in deptos %}
@@ -61,7 +74,16 @@ $(document).ready(
                         <td style="font-size:0.6em"><a href="./depto{{ depto.piso }}-{{ depto.ala }}/" title="ver historial del depto">V</a> <a href="./deptos/{{ depto.id }}/delete" title="eliminar el depto {{ depto }}">X</a> <a href="./depto{{ depto.piso }}-{{ depto.ala }}/detalles" title="editar el depto {{ depto }}">M</a></td>
                          <td style="text-align:right">{% ifequal depto.piso 0 %}PB {% else %}{{ depto.piso }}{% endifequal %}</td>
                          <td style="text-align:right">{{ depto.ala }}</td>
-                         <td style="text-align:right"><div class="edit-coeficiente" id="{{ depto.id }}">{{ depto.coeficiente }}</td>
+                         <td style="text-align:right">
+
+                        {% ifequal consorcio.tipo_expensa 2 %}
+                        {#expensa variable #}
+                        <div class="edit-coeficiente" id="{{ depto.id }}">{{ depto.coeficiente }}</div>
+                        {% else %}
+                        $ <span class="edit-gasto_fijo" id="{{ depto.id }}">{{ depto.gasto_fijo }}</span>
+                        {% endifequal %}                        
+                        
+                        
                          <td><div class="edit-consorcista" id="{{ depto.id }}">{{ depto.nombre_consorcista }}</td>
                          </tr>
 {% endfor %}               

@@ -85,15 +85,27 @@ def balance_cerrar(request, consorcio_id, year, month):
     #TODO se """SUPONE""" que hay solo 1 para este año/mes. Comprobarlo en la validacion del formulario de balances
     balance = Balance.objects.filter(consorcio__exact=consorcio, fecha_vencimiento__year=year, fecha_vencimiento__month=int(month))[0]
     if not balance.balance_cerrado:
+        balance.fecha_cierre = datetime.date.today()
         balance.balance_cerrado = True
         balance.save()
+        
+        #se resta el gasto a la caja del consorcio. 
+        consorcio.saldo_actual = float(consorcio.saldo_actual) - float(balance.total)
+        consorcio.save()
+        
+        
         #se agregan expensas (pagos) para todos los deptos de consorcio
         deptos = Depto.objects.filter(consorcio__exact=consorcio)
         for depto in deptos:
             nuevo_pago = Pago()
             nuevo_pago.depto = depto
             nuevo_pago.balance = balance
-            nuevo_pago.monto_a_pagar = float(balance.total) * float(depto.coeficiente)
+            if consorcio.tipo_expensa==1:
+                #pago fijo
+                nuevo_pago.monto_a_pagar = depto.gasto_fijo
+            else:
+                #pago variable. 
+                nuevo_pago.monto_a_pagar = float(balance.total) * float(depto.coeficiente)
             nuevo_pago.save()
         
         return render_to_response('balance/balance_cerrado.html',{"consorcio":consorcio, "balance":balance})
@@ -153,17 +165,15 @@ def pago_detail(request, consorcio_id, piso, ala, expensa):
     if not pago.depto==depto:
         return HttpResponse('esta expensa no corresponde a este depto')
     
-    
-    
     dif = datetime.date.today() - pago.balance.fecha_vencimiento
     if dif.days > 0:
         if pago.punitorios:
-            punitorios = pago.punitorios
+            punitorios = float(pago.punitorios)
         else:
-            punitorios = consorcio.administradora.interes_diario * float(dif.days) * pago.monto_a_pagar
+            punitorios = float(consorcio.administradora.interes_diario) * float(dif.days) * float(pago.monto_a_pagar)
     else:
         punitorios = 0
-    total = pago.monto_a_pagar + punitorios
+    total = float(pago.monto_a_pagar) + punitorios
     return render_to_response('balance/pago_detail.html', {'consorcio': consorcio, 'depto':depto, 'pago':pago, 'punitorios':punitorios, 'total':total})
 
 def pago_detail_cerrar(request, consorcio_id, piso, ala, expensa):
@@ -174,13 +184,19 @@ def pago_detail_cerrar(request, consorcio_id, piso, ala, expensa):
     if not pago.depto==depto:
         return HttpResponse('esta expensa no corresponde a este depto')    
     
-    pago.fecha_pago = datetime.date.today   ()
+    pago.fecha_pago = datetime.date.today() #al hacer fecha_pago no nulo se determina que la expensa está paga. 
     dif = pago.fecha_pago - pago.balance.fecha_vencimiento
     if dif.days > 0:
-        pago.punitorios = consorcio.administradora.interes_diario * dif.days * pago.monto_a_pagar
+        pago.punitorios = float(consorcio.administradora.interes_diario) * float(dif.days) * pago.monto_a_pagar
     else:
         pago.punitorios = 0
     pago.save()
+    
+    #el pago se suma al total del consorcio. 
+    #TODO esto deberia hacerse con una traza de enventos. 
+    consorcio.saldo_actual = consorcio.saldo_actual + pago.monto_a_pagar + pago.punitorios
+    consorcio.save()
+    
     return HttpResponseRedirect('/consorcio/' +consorcio_id + '/depto' + str(depto.piso) + '-' + str(depto.ala) + '/exp' + str(pago.id))
 
 
