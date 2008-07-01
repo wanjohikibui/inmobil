@@ -54,13 +54,16 @@ $(document).ready(
 {% block unacol %}
 <h2>Consorcio "{{ consorcio.nombre }}" - {{ balance.fecha_balance|date:"F \de Y" }}</h2>
 <p>vencimiento {{ balance.fecha_vencimiento|date:"d-m-Y" }} - Identificador de Balance: {{ balance.id }}</p>
+<div>
+<table><tr class="grid-header-bg"><td>Caja actual del consorcio</td><td>$ {{ consorcio.saldo_actual }}</td></tr>
+</div>
 
 {% if mensaje %}
 <div class="mensaje">{{ mensaje }}</div>
 {% endif %}
 
 {% if balance.balance_cerrado %}
-<div style="border: 1px solid #000">Este Balance se cerró el dia {{ balance.fecha_creacion }}</div>
+<div style="border: 1px solid #000">Este Balance se cerró el dia {{ balance.fecha_cierre }}</div>
 {% endif %}
 
 <table id="balance">
@@ -70,7 +73,7 @@ $(document).ready(
 <tbody>
 {% for item in items %}
                          <tr>
-                         <td><a href="/balance/{{ balance.id }}/item/{{ item.id }}">X</a></td>
+                         <td><a href="/balance/{{ balance.id }}/item/{{ item.id }}" title="eliminar este item">X</a></td>
                          <td><div class="edit-concepto" id="{{ item.id }}">{{ item.concepto }}</div></td>
                          <td><div class="edit-categoria" id="{{ item.id }}">{{ item.categoria }}</td>
                          <td style="text-align:right">$ <span class="edit-monto" id="{{ item.id }}">{{ item.monto }}</span></td>                  

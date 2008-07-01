@@ -4,7 +4,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django import newforms as forms
 from inmobil.balance.models import *
-from inmobil.historial.models	import Pago
+from inmobil.historial.models import Pago
 
 def index(request):
 	"""vista de la pagina inicial del sistema"""
@@ -53,6 +53,7 @@ def consorcio_new(request):
 					new_depto.piso = piso
 					new_depto.ala = ala
 					new_depto.coeficiente = 1 / float(cantidad)
+					new_depto.gasto_fijo = float(consorcio.gasto_mensual_promedio) / float(cantidad)
 					new_depto.save()
 			
 			return HttpResponseRedirect('/consorcio/' + str(consorcio.id) + '/deptos')
@@ -63,13 +64,14 @@ def consorcio_new(request):
     return render_to_response('consorcio_new.html',
                                 {'form_consorcio': form_nuevo_consorcio})
 
-FormDeptoNew = forms.form_for_model(Depto, fields=('piso', 'ala', 'coeficiente','nombre_consorcista', 
+FormDeptoNew = forms.form_for_model(Depto, fields=('piso', 'ala', 'coeficiente','gasto_fijo','nombre_consorcista', 
 					'tel_consorcista', 'email_consorcista', 'nombre_propietario', 'direccion_propietario'
 					'tel_propietario','email_propietario'))
 
 def consorcio_deptos(request, consorcio_id):
 	consorcio = Consorcio.objects.get(id=consorcio_id)
 	deptos = Depto.objects.filter(consorcio__exact=consorcio)
+	#print consorcio
 	alto = int(len(deptos) * 19) + 19
 	
 	form_nuevo_depto = FormDeptoNew(request.POST)
@@ -113,9 +115,13 @@ def depto_modify_ajax(request, campo):
     try:
 		value = request.POST['value']
 		depto1 = Depto.objects.get(id=int(request.POST[u'id']))
+		if campo=='gasto_fijo': #por qué concha tuve que ponerlo acá y no abajo.
+								#no me lo explico
+			depto1.gasto_fijo = float(value)		
     except KeyError:
         return HttpResponse('no hay valor')                
 	
+	print campo
 	
     if campo=='coeficiente':
         depto1.coeficiente = float(value)
@@ -135,7 +141,7 @@ def depto_update(request, consorcio_id, piso, ala):
 	depto = Depto.objects.filter(consorcio__exact=consorcio_id, piso__exact=piso, ala__exact=ala)[0]
 	consorcio = Consorcio.objects.get(id=consorcio_id)
 	
-	EditDeptoForm = forms.form_for_instance(depto, fields=('piso', 'ala', 'coeficiente','nombre_consorcista', 
+	EditDeptoForm = forms.form_for_instance(depto, fields=('piso', 'ala', 'coeficiente','gasto_fijo','nombre_consorcista', 
 					'tel_consorcista', 'email_consorcista', 'nombre_propietario', 'direccion_propietario'
 					'tel_propietario','email_propietario'))
 	

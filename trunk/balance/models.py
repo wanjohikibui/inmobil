@@ -24,6 +24,12 @@ class Administradora(models.Model):
 		pass
 
 
+TIPOS_EXPENSA = (
+    (1, 'Fija'),
+    (2, 'Variable'),
+)
+
+
 class Consorcio(models.Model):
 	"""El edificio administrado"""
 	administradora = models.ForeignKey(Administradora)
@@ -31,7 +37,9 @@ class Consorcio(models.Model):
 	direccion = models.CharField(max_length=250)
 	pisos = models.SmallIntegerField(help_text="la planta baja cuenta como un piso")
 	alas = models.SmallIntegerField(help_text="Indique la cantidad de alas. Si existe 'A' 'B' y 'C' serían 3 alas")
-	#reserva_actual = models.DecimalField(max_digits=6, decimal_places=2,help_text="dinero en reserva del consorcio", default=0)
+	tipo_expensa = models.IntegerField(default=1, choices=TIPOS_EXPENSA)	
+	saldo_actual = models.DecimalField(max_digits=8, decimal_places=2,help_text="balance actual del consorcio", default=0)
+	gasto_mensual_promedio = models.DecimalField(max_digits=8, decimal_places=2,help_text="con este valor se calcula el pago fijo")
 	observacion = models.TextField(blank=True, null=True)
 	
 	def __unicode__(self):
@@ -47,6 +55,7 @@ class Depto(models.Model):
 	piso = models.PositiveIntegerField()
 	ala = models.CharField(max_length=2)
 	coeficiente = models.DecimalField(max_digits=6, decimal_places=4)
+	gasto_fijo = models.DecimalField(max_digits=8, decimal_places=2, blank=True)
 	nombre_consorcista = models.CharField(max_length=200, blank=True, null=True)
 	tel_consorcista = models.CharField(max_length=20, blank=True, null=True)
 	email_consorcista = models.EmailField(blank=True, null=True)
@@ -56,7 +65,11 @@ class Depto(models.Model):
 	email_propietario = models.EmailField(blank=True, null=True)	
 	
 	def __unicode__(self):
-		return unicode(self.piso) + u'º' + unicode(self.ala)
+		if self.piso==0:
+			return "PB " + unicode(self.ala)
+		else:
+			return unicode(self.piso) + u'º' + unicode(self.ala)
+			
 
 	class Admin:
 		pass
@@ -64,6 +77,7 @@ class Depto(models.Model):
 class Balance(models.Model):
 	consorcio = models.ForeignKey(Consorcio)
 	fecha_creacion = models.DateField(auto_now=True)
+	fecha_cierre = models.DateField(null=True)
 	fecha_vencimiento = models.DateField(help_text="Formato AAAA-MM-DD.La fecha de vencimiento debe ser del mes posterior al del balance") 
 	fecha_balance = models.DateField()
 	total = models.DecimalField(default=0, max_digits=8, decimal_places=2)

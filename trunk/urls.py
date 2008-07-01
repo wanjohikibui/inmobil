@@ -10,8 +10,6 @@ from django.views.generic import create_update
 
 
 urlpatterns = patterns('',
-    #pagina principal
-    (r'index/$', 'inmobil.views.index'), 
     
     
     
@@ -78,9 +76,12 @@ urlpatterns = patterns('',
 
 
    #modificacion inlinde de deptos.
-    (r'^depto/ajax/(?P<campo>(coeficiente|consorcista|telefono|email))', 'inmobil.views.depto_modify_ajax'),
+    (r'^depto/ajax/(?P<campo>(coeficiente|consorcista|gasto_fijo|telefono|email))', 'inmobil.views.depto_modify_ajax'),
   
 
     #admin
     (r'^admin/', include('django.contrib.admin.urls')),
+    #pagina principal
+    (r'^$', 'inmobil.views.index'), 
+            
 )
