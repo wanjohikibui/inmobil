@@ -24,9 +24,10 @@ FormBalanceNew = forms.form_for_model(Balance, fields=('fecha_vencimiento', 'obs
 def balance_new(request, consorcio_id):
     """vista de formulario para generar un nuevo balance para el consorcio."""   
     consorcio = Consorcio.objects.get(id=consorcio_id)
-    form_nuevo_balance = FormBalanceNew(request.POST)
+    
     if request.method == 'POST':
         #procesado de Formularios.             
+        form_nuevo_balance = FormBalanceNew(request.POST)
         if  form_nuevo_balance.is_valid():
             #TODO verificar que no exista un balance para el mismo mes/año
             instance = form_nuevo_balance.save(commit=False) #hago un save falso para guardar los demas datos
@@ -36,8 +37,8 @@ def balance_new(request, consorcio_id):
             print request.POST
             
             return HttpResponseRedirect('/consorcio/' +consorcio_id + '/' + request.POST['fecha_vencimiento'][0:7] + '/' )            
-        else:
-            form_nuevo_balance = FormBalanceNew()  
+    else:
+        form_nuevo_balance = FormBalanceNew()  
     return render_to_response('balance/balance_new.html',
                                 {'form_balance': form_nuevo_balance, 'consorcio': consorcio})
     
@@ -60,18 +61,19 @@ def balance_detail(request, consorcio_id, year, month):
         balance.save()
         
     alto = int(len(items) * 19) + 19
-    form_add_item = FormAddItem(request.POST)
+    
     
     
     if request.method == 'POST':
+        form_add_item = FormAddItem(request.POST)
         #procesado de Formularios.             
         if  form_add_item.is_valid():
             instance = form_add_item.save(commit=False) #hago un save falso para guardar los demas datos
             instance.balance = balance
             instance.save()
             return HttpResponseRedirect('/consorcio/' +consorcio_id + '/' + str(year) + '-' + str(month) +  '/' )            
-        else:
-            form_add_item = FormAddItem()
+    else:
+        form_add_item = FormAddItem()
             
             
     return render_to_response('balance/balance_detail.html',{"consorcio":consorcio, "balance":balance, 'items':items, 'form_add_item':form_add_item, 'alto':alto})
@@ -219,8 +221,9 @@ def depto_new(request, consorcio_id, piso_id, ala_id):
     
     consorcio = Consorcio.objects.get(id=consorcio_id)
     
-    form_nuevo_depto = FormAddDepto(request.POST)
+  
     if request.method == 'POST':
+        form_nuevo_depto = FormAddDepto(request.POST)
         #procesado de Formularios.             
         if  form_nuevo_depto.is_valid():
             #TODO verificar que no exista un balance para el mismo mes/año
@@ -232,8 +235,8 @@ def depto_new(request, consorcio_id, piso_id, ala_id):
             print request.POST
             
             return HttpResponseRedirect('/consorcio/' +consorcio_id + '/' + request.POST['fecha_vencimiento'][0:7] + '/' )            
-        else:
-            form_nuevo_depto = FormAddDepto()  
+    else:
+        form_nuevo_depto = FormAddDepto()  
     return render_to_response('balance/depto_new.html',
                                 {'form_depto': form_nuevo_depto, 'consorcio': consorcio})
 
