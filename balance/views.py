@@ -189,14 +189,14 @@ def pago_detail_cerrar(request, consorcio_id, piso, ala, expensa):
     pago.fecha_pago = datetime.date.today() #al hacer fecha_pago no nulo se determina que la expensa está paga. 
     dif = pago.fecha_pago - pago.balance.fecha_vencimiento
     if dif.days > 0:
-        pago.punitorios = float(consorcio.administradora.interes_diario) * float(dif.days) * pago.monto_a_pagar
+        pago.punitorios = float(consorcio.administradora.interes_diario) * float(dif.days) * float(pago.monto_a_pagar)
     else:
         pago.punitorios = 0
     pago.save()
     
     #el pago se suma al total del consorcio. 
     #TODO esto deberia hacerse con una traza de enventos. 
-    consorcio.saldo_actual = consorcio.saldo_actual + pago.monto_a_pagar + pago.punitorios
+    consorcio.saldo_actual = float(consorcio.saldo_actual) + float(pago.monto_a_pagar) + float(pago.punitorios)
     consorcio.save()
     
     return HttpResponseRedirect('/consorcio/' +consorcio_id + '/depto' + str(depto.piso) + '-' + str(depto.ala) + '/exp' + str(pago.id))
