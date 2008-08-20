@@ -44,8 +44,6 @@ urlpatterns = patterns('',
     #pago y comprobante
     (r'^consorcio/(?P<consorcio_id>\d+)/depto(?P<piso>\d+)-(?P<ala>[A-Z]{1})/exp(?P<expensa>\d+)/cerrar', 'inmobil.balance.views.pago_detail_cerrar'),
     (r'^consorcio/(?P<consorcio_id>\d+)/depto(?P<piso>\d+)-(?P<ala>[A-Z]{1})/exp(?P<expensa>\d+)', 'inmobil.balance.views.pago_detail'),
-    
-    
     #historial de expensas para depto
     (r'^consorcio/(?P<consorcio_id>\d+)/depto(?P<piso>\d+)-(?P<ala>[A-Z]{1})/', 'inmobil.historial.views.depto_balance_detail'),
     

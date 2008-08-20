@@ -40,11 +40,11 @@ FormConsorcioNew = forms.form_for_model(Consorcio)
 
 def consorcio_new(request):
     """vista de formulario para crear un nuevo consorcio y sus deptos."""   
-    
+
     if request.method == 'POST':
 		form_nuevo_consorcio = FormConsorcioNew(request.POST)
         #procesado de Formularios.             
-        if  form_nuevo_consorcio.is_valid():
+		if  form_nuevo_consorcio.is_valid():
 			consorcio = form_nuevo_consorcio.save()
 			cantidad = consorcio.pisos * consorcio.alas
 			for piso in range(consorcio.pisos):
@@ -56,12 +56,14 @@ def consorcio_new(request):
 					new_depto.coeficiente = 1 / float(cantidad)
 					new_depto.gasto_fijo = float(consorcio.gasto_mensual_promedio) / float(cantidad)
 					new_depto.save()
-			
+					
+					
 			return HttpResponseRedirect('/consorcio/' + str(consorcio.id) + '/deptos')
-		
-	else:
-		form_nuevo_consorcio = FormConsorcioNew()  
 			
+    else:
+        form_nuevo_depto = FormDeptoNew()  	
+		
+	
     return render_to_response('consorcio_new.html',
                                 {'form_consorcio': form_nuevo_consorcio})
 
@@ -86,7 +88,7 @@ def consorcio_deptos(request, consorcio_id):
 			
 			
 			return HttpResponseRedirect('/consorcio/' + str(consorcio.id) + '/deptos')
-		
+			
 	else:
 		form_nuevo_depto = FormDeptoNew()  	
 			
