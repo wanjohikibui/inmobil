@@ -23,6 +23,8 @@
 </P>
 <P STYLE="margin-bottom: 0cm"><FONT FACE="Verdana, sans-serif"><FONT SIZE=4> {{ consorcio }} - Depto {{ depto }}</FONT></FONT>
 </P>
+<p align="right">Comprobante para el consorcista</p>
+
 <P STYLE="margin-bottom: 0cm"><FONT FACE="Verdana, sans-serif"><FONT SIZE=2>Consorcista:
  {{ depto.nombre_consorcista }}  - Coeficiente: {{ depto.coeficiente }}</FONT></FONT></P>
 <P STYLE="margin-bottom: 0cm"><BR>
@@ -46,57 +48,38 @@ vencimiento: {{ pago.balance.fecha_vencimiento|date:"d\/m\/Y" }}</FONT></FONT></
 registran deudas impagas. </FONT></FONT>
 </P>
 {% endif %}
-<P STYLE="margin-bottom: 0cm; border-top: none; border-bottom: 1px solid #000000; border-left: none; border-right: none; padding-top: 0cm; padding-bottom: 0.07cm; padding-left: 0cm; padding-right: 0cm">
+
+
+<hr>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Verdana, sans-serif"><FONT SIZE=4><FONT SIZE=6 STYLE="font-size: 22pt">{{ consorcio.administradora }}  </FONT><FONT SIZE=3> {{ consorcio.administradora.direccion }} – Tel: {{ consorcio.administradora.telefono }} </FONT></FONT></FONT>
 </P>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm; font-weight: medium"><FONT FACE="Verdana, sans-serif"><FONT SIZE=4>Balance
-{{ balance.fecha_balance|date:"F \de Y" }}</FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm"> 
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Verdana, sans-serif"><FONT SIZE=4> {{ consorcio }} - Depto {{ depto }}</FONT></FONT>
+</P>
+
+<p align="right">Comprobante para la administradora</p>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Verdana, sans-serif"><FONT SIZE=2>Consorcista:
+ {{ depto.nombre_consorcista }}  - Coeficiente: {{ depto.coeficiente }}</FONT></FONT></P>
 <P STYLE="margin-bottom: 0cm"><BR>
 </P>
-<TABLE WIDTH=100% BORDER=1 BORDERCOLOR="#000000" CELLPADDING=4 CELLSPACING=0>
-	<COL WIDTH=168*>
-	<COL WIDTH=51*>
-	<COL WIDTH=37*>
+<TABLE WIDTH=100% BORDER=3 BORDERCOLOR="#000000" CELLPADDING=4 CELLSPACING=0>
+	<COL WIDTH=128*>
+	<COL WIDTH=128*>
 	<TR VALIGN=TOP>
-		<TD WIDTH=66%>
-			<P ALIGN=CENTER><FONT FACE="Verdana, sans-serif"><FONT SIZE=2>CONCEPTO</FONT></FONT></P>
+		<TD WIDTH=50%>
+			<P><FONT FACE="Verdana, sans-serif"><FONT SIZE=4>Expensas de {{ pago.balance.fecha_balance|date:"F \de Y" }}</FONT></FONT></P>
 		</TD>
-		<TD WIDTH=20%>
-			<P ALIGN=CENTER><FONT FACE="Verdana, sans-serif"><FONT SIZE=2>CATEGORIA</FONT></FONT></P>
-		</TD>
-		<TD WIDTH=14%>
-			<P ALIGN=CENTER><FONT FACE="Verdana, sans-serif"><FONT SIZE=2>MONTO</FONT></FONT></P>
-		</TD>
-	</TR>
-	{% for item in items %}
-	<TR VALIGN=TOP>
-		<TD WIDTH=66%>
-			<P><FONT FACE="Verdana, sans-serif"><FONT SIZE=2>{{ item.concepto }}</FONT></FONT></P>
-		</TD>
-		<TD WIDTH=20%>
-			<P><FONT FACE="Verdana, sans-serif"><FONT SIZE=2>{{ item.categoria }}</FONT></FONT></P>
-		</TD>
-		<TD WIDTH=14%>
-			<P ALIGN=RIGHT><FONT FACE="Verdana, sans-serif"><FONT SIZE=2>$ {{ item.monto }}</FONT></FONT></P>
-		</TD>
-	</TR>
-	{% endfor %}
-	<TR VALIGN=TOP>
-		<TD COLSPAN=2 WIDTH=86%>
-			<P ALIGN=RIGHT><FONT FACE="Verdana, sans-serif"><FONT SIZE=3 STYLE="font-size: 13pt">Total
-			Gastos del mes</FONT></FONT></P>
-		</TD>
-		<TD WIDTH=14%>
-			<P ALIGN=RIGHT><FONT FACE="Verdana, sans-serif"><FONT SIZE=3 STYLE="font-size: 13pt">$
-			{{ total }}</FONT></FONT></P>
+		<TD WIDTH=50%>
+			<P ALIGN=RIGHT><FONT FACE="Verdana, sans-serif"><FONT SIZE=4>$ {{ pago.monto_a_pagar }} </FONT></FONT></P>
 		</TD>
 	</TR>
 </TABLE>
-<P STYLE="margin-bottom: 0cm"><BR>
-</P>
-{% if balance.observaciones %}
-<P STYLE="margin-bottom: 0cm"><FONT FACE="Verdana, sans-serif"><FONT SIZE=4><B>Observaciones</B>:
-{{ balance.observaciones }} </FONT></FONT></P>{% endif %}
-<P STYLE="margin-bottom: 0cm; border-top: none; border-bottom: 1px solid #000000; border-left: none; border-right: none; padding-top: 0cm; padding-bottom: 0.07cm; padding-left: 0cm; padding-right: 0cm">
-</P>
+<P><FONT FACE="Verdana, sans-serif"><FONT SIZE=2>Fecha de
+vencimiento: {{ pago.balance.fecha_vencimiento|date:"d\/m\/Y" }}</FONT></FONT></P>
+
+
+
+
 </BODY>
 </HTML>
