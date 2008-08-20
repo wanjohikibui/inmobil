@@ -214,6 +214,20 @@ def pago_informe(request, consorcio_id, piso, ala, expensa):
             
     return render_to_response('balance/informe.html',{"consorcio":consorcio, "balance":balance, 'items':items, 'pago':pago, 'depto':depto, 'total':total})
 
+def pago_informe_balance(request, consorcio_id, piso, ala, expensa):
+    consorcio = Consorcio.objects.get(id=consorcio_id)
+    depto = Depto.objects.filter(consorcio__exact=consorcio_id, piso__exact=piso, ala__exact=ala)[0]
+    pago = Pago.objects.get(id=expensa)    
+    balance = pago.balance
+    items = ItemBalance.objects.filter(balance__exact=balance)
+    total = 0.0
+    for item in items:
+        total = float(total) + float(item.monto)
+            
+    return render_to_response('balance/informe_balance.html',{"consorcio":consorcio, "balance":balance, 'items':items, 'pago':pago, 'depto':depto, 'total':total})
+
+
+
 
 FormAddDepto = forms.form_for_model(Depto, fields=('consorcio_id', 'piso_id','ala_id'))
 ##FormBalanceNew = forms.form_for_model(Balance, fields=('fecha_vencimiento', 'observacion'))
