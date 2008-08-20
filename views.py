@@ -61,7 +61,7 @@ def consorcio_new(request):
 			return HttpResponseRedirect('/consorcio/' + str(consorcio.id) + '/deptos')
 			
     else:
-        form_nuevo_consorcio = FormDeptoNew()  	
+        form_nuevo_consorcio = FormConsorcioNew()  	
 		
 	
     return render_to_response('consorcio_new.html',
