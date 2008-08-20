@@ -82,6 +82,6 @@ urlpatterns = patterns('',
     #admin
     (r'^admin/', include('django.contrib.admin.urls')),
     #pagina principal
-    (r'^$', 'inmobil.views.index'), 
+    (r'^$', list_detail.object_list, consorcio_info), 
             
 )
