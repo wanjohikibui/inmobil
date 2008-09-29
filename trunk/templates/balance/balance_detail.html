@@ -54,6 +54,9 @@ $(document).ready(
 {% block unacol %}
 <h2>Consorcio "{{ consorcio.nombre }}" - {{ balance.fecha_balance|date:"F \de Y" }}</h2>
 <p>vencimiento {{ balance.fecha_vencimiento|date:"d-m-Y" }} - Identificador de Balance: {{ balance.id }}</p>
+
+
+
 <div>
 <table><tr class="grid-header-bg"><td>Caja actual del consorcio</td><td>$ {{ consorcio.saldo_actual }}</td></tr>
 </div>
@@ -89,8 +92,8 @@ $(document).ready(
 
 {% if not balance.balance_cerrado %}
 
-<form action="./cerrar" method="POST">
-<input type="submit" value="CERRAR BALANCE Y GENERAR EXPENSAS DEL MES" onclick="confirm('Esto genera los comprobantes de expensas que no se podrán modificar')" />
+<form action="./cerrar" method="POST" name="cerrar">
+<input type="button" value="CERRAR BALANCE Y GENERAR EXPENSAS DEL MES" onclick="if(confirm('Esto genera los comprobantes de expensas que no se podrán modificar')) document.cerrar.submit();" />
 </form>
 
 
