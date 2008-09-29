@@ -19,8 +19,8 @@ Punitorios: $ {{ punitorios }}<br/>
 {% if not pago.fecha_pago %}
 
 
-<form action="./exp{{ pago.id }}/cerrar" method="POST">
-<input type="submit" value="PAGAR!" onclick="confirm('Cancelar este saldo?')" />
+<form action="./exp{{ pago.id }}/cerrar" method="POST" name="pagar">
+<input type="button" value="PAGAR!" onclick="if(confirm('Cancelar este saldo?')) document.pagar.submit()" />
 </form>
 
 {% else %}
@@ -37,7 +37,7 @@ Fecha de pago: {{ pago.fecha_pago|date:"d\/m\/Y" }} <br/>
 
 {% block nav %}	
 <ul id="nav">
-<li><a href="./exp{{ pago.id }}/informe">Imprimir informe</a></a></li>
+<li><a href="./exp{{ pago.id }}/imprimir_balance">Imprimir balance</a></a></li>
 <li><a href="./">Volver al historial de pagos</a></li>
 <li><a href="/consorcio/{{ consorcio.id }}/{{ pago.balance.fecha_vencimiento|date:"Y-m" }}"> ver el balance de este mes</a></li>
 </ul>

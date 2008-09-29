@@ -203,6 +203,7 @@ def pago_detail_cerrar(request, consorcio_id, piso, ala, expensa):
 
 
 def pago_informe(request, consorcio_id, piso, ala, expensa):
+    #imprimir
     consorcio = Consorcio.objects.get(id=consorcio_id)
     depto = Depto.objects.filter(consorcio__exact=consorcio_id, piso__exact=piso, ala__exact=ala)[0]
     pago = Pago.objects.get(id=expensa)    
