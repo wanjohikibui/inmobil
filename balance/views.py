@@ -172,7 +172,7 @@ def pago_detail(request, consorcio_id, piso, ala, expensa):
         if pago.punitorios:
             punitorios = float(pago.punitorios)
         else:
-            punitorios = float(consorcio.administradora.interes_diario) * float(dif.days) * float(pago.monto_a_pagar)
+            punitorios = float(consorcio.administradora.interes_diario/100) * float(dif.days) * float(pago.monto_a_pagar)
     else:
         punitorios = 0
     total = float(pago.monto_a_pagar) + punitorios
@@ -189,7 +189,7 @@ def pago_detail_cerrar(request, consorcio_id, piso, ala, expensa):
     pago.fecha_pago = datetime.date.today() #al hacer fecha_pago no nulo se determina que la expensa está paga. 
     dif = pago.fecha_pago - pago.balance.fecha_vencimiento
     if dif.days > 0:
-        pago.punitorios = float(consorcio.administradora.interes_diario) * float(dif.days) * float(pago.monto_a_pagar)
+        pago.punitorios = float(consorcio.administradora.interes_diario/100) * float(dif.days) * float(pago.monto_a_pagar)
     else:
         pago.punitorios = 0
     pago.save()

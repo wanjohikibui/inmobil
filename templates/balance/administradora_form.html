@@ -1,0 +1,45 @@
+{% extends "base_configuracion.html" %}
+
+{% block extrahead %}
+{% endblock %}
+
+
+{% block jquery %}
+{% endblock jquery%}
+
+
+{% block left %}
+
+{% if object %}
+<h2>Modificar administradora</h2>
+{% else %}
+<h2>Crear nueva administradora</h2>
+{% endif %}
+
+{% if form.has_errors %}
+<strong>Por favor, corrija los errores. Todos los campos son obligatorios.</strong>
+{% endif %}
+
+
+<form action="" method="POST">
+
+<p><label>Nombre:</label> {{ form.nombre }}</p>
+
+
+<p><label>Dirección:</label> {{ form.direccion }}</p>
+<p><label>Interés diario:</label> {{ form.interes_diario }} <strong>%</strong><small> (A partir de la fecha de vencimiento)</small> </p>
+
+<p><label>Teléfono:</label> {{ form.telefono }}</p>	
+	
+
+
+<input type="submit" value="Enviar" />
+</form>
+
+{% endblock left %}
+
+
+{% block nav %}	
+{% endblock nav %}
+{% block box %}	
+{% endblock box %}	

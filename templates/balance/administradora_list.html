@@ -1,13 +1,27 @@
-{% extends "base_general.html" %}
+{% extends "base_configuracion.html" %}
 
 {% block left %}
 
 <h2>Lista de Administradoras de consorcios</h2>
 
 <ul>
-{% for administradora_item in administradora_list %}
- <li><a href="/administradora/{{ administradora_item.id }}"> {{ administradora_item.nombre }}</a></li>
+{% for administradora in object_list %}
+ <li><a href="/configuracion/administradora/{{ administradora.id }}" title="modificar esta administradora"> {{ administradora.nombre }}</a>
+ <span style="font-size: 0.8em">(<a href="/configuracion/administradora/delete/{{ administradora.id }}">Eliminar</a>)</span>
+</li>
 {% endfor %} 
 </ul>
 {% endblock left %}
 
+
+
+{% block nav %}	
+<ul id="nav">
+	<li><a href="/configuracion/administradora/new">Crear nueva administradora</a> </li>
+	<li><a href="/configuracion">Volver al Panel de configuración</a></li>
+    
+</ul>
+
+{% endblock nav %}
+{% block box %}	
+{% endblock box %}	

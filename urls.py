@@ -18,8 +18,7 @@ urlpatterns = patterns('',
     (r'^configuracion/categoria/$', 'django.views.generic.list_detail.object_list',
      {'queryset': CategoriaItem.objects.all(),
       'allow_empty': True}),
-
-    
+   
     (r'^configuracion/categoria/new$', 'django.views.generic.create_update.create_object',
     {'model': CategoriaItem, 'post_save_redirect': '/configuracion/categoria/',}),
 
@@ -31,6 +30,24 @@ urlpatterns = patterns('',
     (r'^configuracion/categoria/delete/(?P<object_id>[0-9]+)$', 'django.views.generic.create_update.delete_object',
      {'model': CategoriaItem,
       'post_delete_redirect': '/configuracion/categoria/'}),
+
+
+    #CRUD para administradoras
+    (r'^configuracion/administradora/$', 'django.views.generic.list_detail.object_list',
+     {'queryset': Administradora.objects.all(),
+      'allow_empty': True}),
+
+    (r'^configuracion/administradora/new$', 'django.views.generic.create_update.create_object',
+    {'model': Administradora, 'post_save_redirect': '/configuracion/administradora/',}),
+
+    (r'^configuracion/administradora/(?P<object_id>[0-9]+)/$', 'django.views.generic.create_update.update_object',
+     {'model': Administradora,
+      'post_save_redirect': '/configuracion/administradora/'}),
+
+    (r'^configuracion/administradora/delete/(?P<object_id>[0-9]+)$', 'django.views.generic.create_update.delete_object',
+     {'model': Administradora,
+      'post_delete_redirect': '/configuracion/administradora/'}),
+
 
 
     
@@ -114,6 +131,6 @@ urlpatterns = patterns('',
     #admin
     (r'^admin/', include('django.contrib.admin.urls')),
     #pagina principal
-    (r'^$', list_detail.object_list, consorcio_info), 
+    (r'^$',  'django.views.generic.simple.redirect_to', {'url': '/consorcios'}), 
             
 )
