@@ -4,9 +4,14 @@
 
 <h2>Consorcios administrados</h2>
 
+{% if not administradoras %}
+Aun no hay ninguna administradora <a href="/configuracion/administradora/new">Cree una!</a>
+{% else %}
+
 {% if not consorcio_list %}
 Aun no hay consorcios administrados. <a href="./new">Cree uno!</a>
 {% else %}
+
 
 <ul>
 
@@ -17,11 +22,15 @@ Aun no hay consorcios administrados. <a href="./new">Cree uno!</a>
 </ul>
 
 {% endif %}
+{% endif %}
+
 {% endblock left %}
 
 {% block nav %}
+{% if administradoras %}
 <ul id="nav">
 <li><a href="/consorcios/new">Crear nuevo consorcio</a></li>
 </ul>
+{% endif %}
 {% endblock nav %}
 {% block box %}{% endblock %}
