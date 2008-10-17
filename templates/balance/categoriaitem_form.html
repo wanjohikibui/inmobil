@@ -1,0 +1,31 @@
+{% extends "base_configuracion.html" %}
+
+{% block extrahead %}
+{% endblock %}
+
+
+{% block jquery %}
+{% endblock jquery%}
+
+
+{% block left %}
+
+{% if object %}
+<h2>Modificar categoría de liquidación</h2>
+{% else %}
+<h2>Crear categoría de liquidación</h2>
+{% endif %}
+
+
+<form action="" method="POST">
+<p>{{ form.nombre.label_tag }} {{ form.nombre }}</p>
+<input type="submit" value="Crear" />
+</form>
+
+{% endblock left %}
+
+
+{% block nav %}	
+{% endblock nav %}
+{% block box %}	
+{% endblock box %}	

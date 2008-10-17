@@ -1,0 +1,39 @@
+{% extends "base_configuracion.html" %}
+
+{% block extrahead %}
+{% endblock %}
+
+
+{% block jquery %}
+{% endblock jquery%}
+
+
+{% block left %}
+
+<h2>Categorías de liquidación</h2>
+
+<ul>
+{% for categoria in object_list %}
+
+
+<li><a href="/configuracion/categoria/{{ categoria.id}}" title="modificar esta categoria">{{ categoria.nombre }}</a> <span style="font-size: 0.8em">(<a href="/configuracion/categoria/delete/{{ categoria.id}}">Eliminar</a>)</span></li>
+{% endfor %}
+
+</ul>
+
+
+
+{% endblock left %}
+
+
+{% block nav %}	
+<ul id="nav">
+	<li><a href="/configuracion/categoria/new">Crear nueva categoría</a> </li>
+	<li><a href="/configuracion">Volver al Panel de configuración</a></li>
+    
+</ul>
+
+
+{% endblock nav %}
+{% block box %}	
+{% endblock box %}	
