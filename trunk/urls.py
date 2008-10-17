@@ -52,10 +52,20 @@ urlpatterns = patterns('',
 
     
     
+    #delete consorcio
+    (r'^consorcio/(?P<object_id>[0-9]+)/delete$', 'django.views.generic.create_update.delete_object',
+     {'model': Consorcio,
+      'post_delete_redirect': '/consorcios'}),
+    
     
     #detalle consorcio
     (r'^consorcio/(?P<consorcio_id>\d+)/$', 'inmobil.balance.views.consorcio_detail'),
     
+
+
+    
+
+
 
     
     
@@ -103,17 +113,12 @@ urlpatterns = patterns('',
     #agregar nuevo consorcio y sus deptos asociados
     (r'^consorcios/new',  'inmobil.views.consorcio_new'),
     
-    #agregar nueva categoria de items
-    (r'^config/categoria',  'inmobil.views.categoria_item_new'),
-    
+   
             
     #listar consorcios generic view. ver http://djangobook.com/en/1.0/chapter09/
     (r'^consorcios/',   list_detail.object_list, consorcio_info), 
     
     
-    
-    
-    (r'^administradoras/',   list_detail.object_list, administradora_info),
     
     
 
