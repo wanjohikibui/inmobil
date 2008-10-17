@@ -29,7 +29,7 @@ h2 {
 ul {
 	margin:0;
 	padding:0;
-	list-style-image: url(../img/bullet.gif);
+	/* list-style-image: url(../img/bullet.gif); */
 }
 
 a {

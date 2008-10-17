@@ -36,6 +36,7 @@ depto1 = {
 
 
 FormConsorcioNew = forms.form_for_model(Consorcio)
+FormCategoriaItemNew = forms.form_for_model(CategoriaItem)
 
 
 def consorcio_new(request):
@@ -66,6 +67,35 @@ def consorcio_new(request):
 	
     return render_to_response('consorcio_new.html',
                                 {'form_consorcio': form_nuevo_consorcio})
+
+
+
+def categoria_item_new(request):
+    """vista de formulario para crear categorias de items"""   
+
+    if request.method == 'POST':
+		form_nueva_categoria = FormCategoriaItemNew(request.POST)
+        #procesado de Formularios.             
+		if  form_nueva_categoria.is_valid():
+			categoria = form_nueva_categoria.save()
+			return render_to_response('categoria_new.html',
+			                                {'form_categoria_item': FormCategoriaItemNew(), 'categoria':categoria})			
+		else: 
+			categoria = None
+			
+    else:
+		form_nueva_categoria = FormCategoriaItemNew()  	
+		categoria = None
+	
+	
+	
+	
+    return render_to_response('categoria_new.html',
+                                {'form_categoria_item': form_nueva_categoria, 'categoria':categoria})
+
+
+
+
 
 FormDeptoNew = forms.form_for_model(Depto, fields=('piso', 'ala', 'coeficiente','gasto_fijo','nombre_consorcista', 
 					'tel_consorcista', 'email_consorcista', 'nombre_propietario', 'direccion_propietario'

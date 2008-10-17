@@ -1,0 +1,29 @@
+{% extends "base_configuracion.html" %}
+
+{% block extrahead %}
+{% endblock %}
+
+
+{% block jquery %}
+{% endblock jquery%}
+
+
+{% block left %}
+
+
+<h2>Va a eliminar la categoría <em>"{{ object.nombre }}"</em></h2>
+
+
+<form action="" method="POST">
+<p><strong>¿Está de acuerdo?</strong></p>
+<input type="submit" value="Sí, Eliminar" />
+<input type="button" value="Cancelar" onClick="document.location.href='/configuracion/categoria/';"/>
+</form>
+
+{% endblock left %}
+
+
+{% block nav %}	
+{% endblock nav %}
+{% block box %}	
+{% endblock box %}	
