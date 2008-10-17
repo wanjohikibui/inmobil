@@ -7,10 +7,10 @@ class Administradora(models.Model):
 	"""El administrador del sistema"""
 	nombre= models.CharField(max_length=200)
 	direccion = models.CharField(max_length=250)
-	interes_diario = models.DecimalField(max_digits=6, decimal_places=2, default=0.01, help_text="porcentaje de interes desde la fecha de vencimiento a la fecha de pago")
+	interes_diario = models.DecimalField(max_digits=6, decimal_places=2, default=0.5, help_text="porcentaje de interes diario desde la fecha de vencimiento a la fecha de pago")
 	observacion = models.TextField(blank=True, null=True)
 	imagen = models.ImageField(upload_to=PATH_ARCHIVOS, height_field=100,width_field=100, null=True, blank=True)
-	telefono = models.CharField(max_length=10)
+	telefono = models.CharField(max_length=20)
 	slogan = models.CharField(max_length=200, blank=True, null=True)
 	email = models.EmailField(blank=True, null=True)
 	sitio = models.URLField(verify_exists=False, blank=True, null=True)
