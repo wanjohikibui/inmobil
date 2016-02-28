@@ -1,0 +1,1 @@
+Inmobil is a real estate management system based on the framework python. At the moment just manage the balance of taxs and history of payments of each unit.
